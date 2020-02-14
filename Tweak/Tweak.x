@@ -22,6 +22,7 @@
         double xCordinateValue = [xCordinate doubleValue];
         double yCordinateValue = [yCordinate doubleValue];
         double moonSizeValue = [moonSize doubleValue];
+        int moonIconValue = [moonIconList intValue];
         // Set The Image, Mode And Postition
         dndImageView = [[UIImageView alloc] init];
         dndImageView.image = [UIImage imageWithContentsOfFile: @"Library/Lune/dnd.png"];
@@ -147,6 +148,7 @@
     [pfs registerObject:&xCordinate default:@"5" forKey:@"xcordinates"];
     [pfs registerObject:&yCordinate default:@"215" forKey:@"ycordinates"];
     [pfs registerObject:&moonSize default:@"20" forKey:@"size"];
+    [pfs registerObject:&moonIconList default:@"0" forKey:@"moonIcon"];
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;

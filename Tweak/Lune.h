@@ -19,6 +19,7 @@ BOOL hideDNDBannerSwitch = YES;
 NSString* xCordinate = @"5";
 NSString* yCordinate = @"215";
 NSString* moonSize = @"20";
+NSString* moonIconList = @"0";
 
 BOOL isDNDActive;
 
