@@ -27,7 +27,7 @@
 
 - (void)_queue_postOrRemoveNotificationWithUpdatedBehavior:(BOOL)arg1 significantTimeChange:(BOOL)arg2 {
 
-    if (hideDNDBannerSwitch) {
+    if (enabled && hideDNDBannerSwitch) {
         return;
 
     } else {
