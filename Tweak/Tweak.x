@@ -3,28 +3,44 @@
 %group Lune
 
 %hook SBFLockScreenDateView
-
-- (void)didMoveToWindow {
+// Using The layoutSubviews Because They're Being Called More Often Than didMoveToWindow
+- (void)layoutSubviews {
 
 	%orig;
+    // Removing The Moon Before Showing, Workaround To Fix The Moon Not Hiding When DND Mode Is Disabled
+    [dndImageView removeFromSuperview];
+    // Show The Moon If DND Is Active
+    [self setMoon];
 
-    double xCordinateValue = [xCordinate doubleValue];
-    double yCordinateValue = [yCordinate doubleValue];
-    double moonSizeValue = [moonSize doubleValue];
+}
 
-	UIImageView* dndImageView = [[UIImageView alloc] init];
-	dndImageView.image = [UIImage imageWithContentsOfFile: @"Library/Lune/dnd.png"];
-	dndImageView.contentMode = UIViewContentModeScaleAspectFit;
-	dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue);
-	
-	[self addSubview: dndImageView];
+%new
+- (void)setMoon {
+
+    if (isDNDActive) {
+        // Get The Values From The Sliders
+        double xCordinateValue = [xCordinate doubleValue];
+        double yCordinateValue = [yCordinate doubleValue];
+        double moonSizeValue = [moonSize doubleValue];
+        // Set The Image, Mode And Postition
+        dndImageView = [[UIImageView alloc] init];
+        dndImageView.image = [UIImage imageWithContentsOfFile: @"Library/Lune/dnd.png"];
+        dndImageView.contentMode = UIViewContentModeScaleAspectFit;
+        dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue);
+        // Add It To The View
+        [self addSubview: dndImageView];
+
+    } else {
+        [dndImageView removeFromSuperview]; // If DND Is Disabled Remove The Moon From The View
+
+    }
 
 }
 
 %end
 
 %hook DNDNotificationsService
-
+// Hide The DND Banner If The Switch Is Toggled
 - (void)_queue_postOrRemoveNotificationWithUpdatedBehavior:(BOOL)arg1 significantTimeChange:(BOOL)arg2 {
 
     if (enabled && hideDNDBannerSwitch) {
@@ -34,6 +50,18 @@
         %orig;
 
     }
+
+}
+
+%end
+// Check If DND Is Enabled Or Disabled
+%hook DNDState
+
+-(BOOL)isActive {
+
+    isDNDActive = %orig;
+
+    return %orig;
 
 }
 

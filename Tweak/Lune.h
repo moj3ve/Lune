@@ -20,8 +20,11 @@ NSString* xCordinate = @"5";
 NSString* yCordinate = @"215";
 NSString* moonSize = @"20";
 
+BOOL isDNDActive;
+
 @interface SBFLockScreenDateView : UIView
-- (void)didMoveToWindow;
+- (void)layoutSubviews;
+- (void)setMoon;
 @end
 
 @interface SBIconController : UIViewController
