@@ -1,0 +1,9 @@
+Package: sh.litten.lune
+Name: Lune
+Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.14)
+Version: 1.0
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: Litten
+Author: Litten
+Section: Tweaks

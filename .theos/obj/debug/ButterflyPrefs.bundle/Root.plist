@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+
+		<dict>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>@Litteeen</string>
+            <key>cellClass</key>
+            <string>HBTwitterCell</string>
+            <key>label</key>
+            <string>Litten</string>
+            <key>user</key>
+            <string>Litteeen</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>Enabled</string>
+			<key>label</key>
+			<string>Enabled (Respring required)</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>X Cordinate Of The Moon</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<real>70</real>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>xcordinates</string>
+			<key>min</key>
+			<real>0</real>
+			<key>max</key>
+			<real>1000</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Y Cordinate Of The Moon</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<real>70</real>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>ycordinates</string>
+			<key>min</key>
+			<real>0</real>
+			<key>max</key>
+			<real>1000</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Icon Design</string>
+		</dict>
+		<dict>
+            <key>action</key>
+            <string>twittertaki</string>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>@74k1_</string>
+            <key>cellClass</key>
+            <string>HBTwitterCell</string>
+            <key>label</key>
+            <string>taki</string>
+            <key>user</key>
+            <string>74k1_</string>
+        </dict>
+
+		<!-- Support Me -->
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Support Me</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Little Donation 🌺</string>
+			<key>subtitle</key>
+			<string>Helps Me To Pay For My Server</string>
+			<key>url</key>
+			<string>https://paypal.me/Litteeen</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Feature Request? ✨</string>
+			<key>subtitle</key>
+			<string>Send Me An Email With Your Request</string>
+			<key>url</key>
+			<string>mailto:hello@litten.sh?subject=Lune%20Feature%20Request</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Source Code 🌙</string>
+			<key>subtitle</key>
+			<string>Github</string>
+			<key>url</key>
+			<string>https://github.com/Litteeen/Lune</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Found A Bug? 🌧</string>
+			<key>subtitle</key>
+			<string>Leave A Bug Report Here</string>
+			<key>url</key>
+			<string>https://github.com/Litteeen/Lune/issues/new</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Lune By Litten, Made With ❤️</string>
+			<key>isStaticText</key>
+			<true/>
+		</dict>
+
+	</array>
+	<key>title</key>
+	<string>Lune</string>
+</dict>
+</plist>
