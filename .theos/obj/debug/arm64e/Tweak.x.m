@@ -22,7 +22,7 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class SBFLockScreenDateView; @class DNDNotificationsService; @class SBIconController; 
+@class SBFLockScreenDateView; @class SBIconController; @class DNDNotificationsService; 
 
 
 #line 3 "Tweak.x"
