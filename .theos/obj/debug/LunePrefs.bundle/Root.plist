@@ -156,7 +156,7 @@
 			<array>
 				<string>Moon 1</string>
 				<string>Moon 2</string>
-				<string>Moon 3</string>
+				<string>Star 1</string>
 			</array>
 			<key>PostNotification</key>
 			<string>sh.litten.lunepreferences/ReloadPrefs</string>
