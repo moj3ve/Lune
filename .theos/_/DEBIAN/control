@@ -2,9 +2,12 @@ Package: sh.litten.lune
 Name: Lune
 Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.14)
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
-Maintainer: Litten
-Author: Litten
+Description: Twinkle, Twinkle, Little Star
+Maintainer: Litten <hello@litten.sh>
+Author: Litten <hello@litten.sh>
 Section: Tweaks
-Version: 1.0-44+debug
+Depiction: https://repo.litten.sh/depictions/lne/index.html
+SileoDepiction: https://repo.litten.sh/depictions/lne/lne.json
+Icon: https://repo.litten.sh/depictions/lne/assets/icon.png
+Version: 1.0-45+debug
 Installed-Size: 580
