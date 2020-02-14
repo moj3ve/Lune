@@ -133,6 +133,34 @@
 			<key>PostNotification</key>
 			<string>sh.litten.lunepreferences/ReloadPrefs</string>
 		</dict>
+				<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>label</key>
+			<string>Moon Icon:</string>
+			<key>key</key>
+			<string>moonIcon</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Moon 1</string>
+				<string>Moon 2</string>
+				<string>Moon 3</string>
+			</array>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
 
 		<dict>
 			<key>cell</key>

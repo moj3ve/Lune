@@ -22,7 +22,7 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class DNDState; @class SBFLockScreenDateView; @class DNDNotificationsService; @class SBIconController; 
+@class DNDState; @class DNDNotificationsService; @class SBIconController; @class SBFLockScreenDateView; 
 
 
 #line 3 "Tweak.x"
@@ -33,9 +33,9 @@ static void (*_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews)(_LOGOS_SELF
 static void _logos_method$Lune$SBFLockScreenDateView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
 	_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews(self, _cmd);
-
+    
     [dndImageView removeFromSuperview];
-
+    
     [self setMoon];
 
 }
@@ -44,19 +44,21 @@ static void _logos_method$Lune$SBFLockScreenDateView$layoutSubviews(_LOGOS_SELF_
 static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
     if (isDNDActive) {
+        
         double xCordinateValue = [xCordinate doubleValue];
         double yCordinateValue = [yCordinate doubleValue];
         double moonSizeValue = [moonSize doubleValue];
-
+        int moonIconValue = [moonIconList intValue];
+        
         dndImageView = [[UIImageView alloc] init];
-        dndImageView.image = [UIImage imageWithContentsOfFile: @"Library/Lune/dnd.png"];
+        dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]]; 
         dndImageView.contentMode = UIViewContentModeScaleAspectFit;
         dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue);
-
+        
         [self addSubview: dndImageView];
 
     } else {
-        [dndImageView removeFromSuperview];
+        [dndImageView removeFromSuperview]; 
 
     }
 
@@ -124,7 +126,7 @@ static void _logos_method$LuneIntegrityFail$SBIconController$viewDidAppear$(_LOG
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_d3183886(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_d71d90a9(int __unused argc, char __unused **argv, char __unused **envp) {
 
     if (![NSProcessInfo processInfo]) return;
     NSString *processName = [NSProcessInfo processInfo].processName;
@@ -172,6 +174,7 @@ static __attribute__((constructor)) void _logosLocalCtor_d3183886(int __unused a
     [pfs registerObject:&xCordinate default:@"5" forKey:@"xcordinates"];
     [pfs registerObject:&yCordinate default:@"215" forKey:@"ycordinates"];
     [pfs registerObject:&moonSize default:@"20" forKey:@"size"];
+    [pfs registerObject:&moonIconList default:@"0" forKey:@"moonIcon"];
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;

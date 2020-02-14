@@ -25,7 +25,7 @@
         int moonIconValue = [moonIconList intValue];
         // Set The Image, Mode And Postition
         dndImageView = [[UIImageView alloc] init];
-        dndImageView.image = [UIImage imageWithContentsOfFile: @"Library/Lune/dnd.png"];
+        dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]]; // Set The Moon Icon To The One The User Has Chosen
         dndImageView.contentMode = UIViewContentModeScaleAspectFit;
         dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue);
         // Add It To The View
@@ -58,7 +58,7 @@
 // Check If DND Is Enabled Or Disabled
 %hook DNDState
 
--(BOOL)isActive {
+- (BOOL)isActive {
 
     isDNDActive = %orig;
 
