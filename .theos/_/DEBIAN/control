@@ -9,5 +9,5 @@ Section: Tweaks
 Depiction: https://repo.litten.sh/depictions/lne/index.html
 SileoDepiction: https://repo.litten.sh/depictions/lne/lne.json
 Icon: https://repo.litten.sh/depictions/lne/assets/icon.png
-Version: 1.1
-Installed-Size: 576
+Version: 1.1.1
+Installed-Size: 788

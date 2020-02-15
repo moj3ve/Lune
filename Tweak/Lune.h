@@ -18,9 +18,9 @@ BOOL ringerIconSwitch = NO;
 BOOL preferRingerIconSwitch = NO;
 
 // Coordinate Sliders
-NSString* xCordinate = @"5";
+NSString* xCordinate = @"150";
 NSString* yCordinate = @"215";
-NSString* moonSize = @"20";
+NSString* moonSize = @"15";
 NSString* moonIconList = @"0";
 NSString* moonIconRingerList = @"6";
 
@@ -31,6 +31,14 @@ BOOL isRingerSilent;
 @interface SBFLockScreenDateView : UIView
 - (void)layoutSubviews;
 - (void)setMoon;
+@end
+
+@interface DNDState : NSObject
+- (BOOL)isActive;
+@end
+
+@interface SBRingerControl : NSObject
+- (BOOL)isRingerMuted;
 @end
 
 @interface SBIconController : UIViewController

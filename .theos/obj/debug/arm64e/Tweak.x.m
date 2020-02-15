@@ -22,11 +22,11 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class DNDNotificationsService; @class DNDState; @class SBRingerControl; @class SBIconController; @class SBFLockScreenDateView; @class SBRingerHUDView; 
+@class DNDNotificationsService; @class DNDState; @class SBRingerControl; @class SBFLockScreenDateView; @class SBIconController; 
 
 
 #line 3 "Tweak.x"
-static void (*_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Lune$SBFLockScreenDateView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$)(_LOGOS_SELF_TYPE_NORMAL DNDNotificationsService* _LOGOS_SELF_CONST, SEL, BOOL, BOOL); static void _logos_method$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$(_LOGOS_SELF_TYPE_NORMAL DNDNotificationsService* _LOGOS_SELF_CONST, SEL, BOOL, BOOL); static BOOL (*_logos_orig$Lune$DNDState$isActive)(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$DNDState$isActive(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL (*_logos_orig$Lune$SBRingerControl$isRingerMuted)(_LOGOS_SELF_TYPE_NORMAL SBRingerControl* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$SBRingerControl$isRingerMuted(_LOGOS_SELF_TYPE_NORMAL SBRingerControl* _LOGOS_SELF_CONST, SEL); static BOOL (*_logos_orig$Lune$SBRingerHUDView$isSilent)(_LOGOS_SELF_TYPE_NORMAL SBRingerHUDView* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$SBRingerHUDView$isSilent(_LOGOS_SELF_TYPE_NORMAL SBRingerHUDView* _LOGOS_SELF_CONST, SEL); 
+static void (*_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Lune$SBFLockScreenDateView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$)(_LOGOS_SELF_TYPE_NORMAL DNDNotificationsService* _LOGOS_SELF_CONST, SEL, BOOL, BOOL); static void _logos_method$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$(_LOGOS_SELF_TYPE_NORMAL DNDNotificationsService* _LOGOS_SELF_CONST, SEL, BOOL, BOOL); static BOOL (*_logos_orig$Lune$DNDState$isActive)(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$DNDState$isActive(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL (*_logos_orig$Lune$SBRingerControl$isRingerMuted)(_LOGOS_SELF_TYPE_NORMAL SBRingerControl* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$SBRingerControl$isRingerMuted(_LOGOS_SELF_TYPE_NORMAL SBRingerControl* _LOGOS_SELF_CONST, SEL); 
 
 
 
@@ -124,18 +124,6 @@ static BOOL _logos_method$Lune$SBRingerControl$isRingerMuted(_LOGOS_SELF_TYPE_NO
 
 
 
-static BOOL _logos_method$Lune$SBRingerHUDView$isSilent(_LOGOS_SELF_TYPE_NORMAL SBRingerHUDView* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
-
-    isRingerSilent = _logos_orig$Lune$SBRingerHUDView$isSilent(self, _cmd);
-
-    return _logos_orig$Lune$SBRingerHUDView$isSilent(self, _cmd);
-
-}
-
-
-
-
-
     
 static void (*_logos_orig$LuneIntegrityFail$SBIconController$viewDidAppear$)(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); static void _logos_method$LuneIntegrityFail$SBIconController$viewDidAppear$(_LOGOS_SELF_TYPE_NORMAL SBIconController* _LOGOS_SELF_CONST, SEL, BOOL); 
 
@@ -166,7 +154,7 @@ static void _logos_method$LuneIntegrityFail$SBIconController$viewDidAppear$(_LOG
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_fe62b06b(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_e6244da5(int __unused argc, char __unused **argv, char __unused **envp) {
 
     if (![NSProcessInfo processInfo]) return;
     NSString *processName = [NSProcessInfo processInfo].processName;
@@ -211,9 +199,9 @@ static __attribute__((constructor)) void _logosLocalCtor_fe62b06b(int __unused a
     [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
     [pfs registerBool:&hideDNDBannerSwitch default:YES forKey:@"hideDNDBanner"];
     
-    [pfs registerObject:&xCordinate default:@"5" forKey:@"xcordinates"];
+    [pfs registerObject:&xCordinate default:@"150" forKey:@"xcordinates"];
     [pfs registerObject:&yCordinate default:@"215" forKey:@"ycordinates"];
-    [pfs registerObject:&moonSize default:@"20" forKey:@"size"];
+    [pfs registerObject:&moonSize default:@"15" forKey:@"size"];
     [pfs registerObject:&moonIconList default:@"0" forKey:@"moonIcon"];
     [pfs registerBool:&ringerIconSwitch default:NO forKey:@"ringerIcon"];
     [pfs registerBool:&preferRingerIconSwitch default:NO forKey:@"preferRingerIcon"];
@@ -226,7 +214,7 @@ static __attribute__((constructor)) void _logosLocalCtor_fe62b06b(int __unused a
         );
 
         if (ok && [@"litten" isEqualToString:@"litten"]) {
-            {Class _logos_class$Lune$SBFLockScreenDateView = objc_getClass("SBFLockScreenDateView"); MSHookMessageEx(_logos_class$Lune$SBFLockScreenDateView, @selector(layoutSubviews), (IMP)&_logos_method$Lune$SBFLockScreenDateView$layoutSubviews, (IMP*)&_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews);{ char _typeEncoding[1024]; unsigned int i = 0; _typeEncoding[i] = 'v'; i += 1; _typeEncoding[i] = '@'; i += 1; _typeEncoding[i] = ':'; i += 1; _typeEncoding[i] = '\0'; class_addMethod(_logos_class$Lune$SBFLockScreenDateView, @selector(setMoon), (IMP)&_logos_method$Lune$SBFLockScreenDateView$setMoon, _typeEncoding); }Class _logos_class$Lune$DNDNotificationsService = objc_getClass("DNDNotificationsService"); MSHookMessageEx(_logos_class$Lune$DNDNotificationsService, @selector(_queue_postOrRemoveNotificationWithUpdatedBehavior:significantTimeChange:), (IMP)&_logos_method$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$, (IMP*)&_logos_orig$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$);Class _logos_class$Lune$DNDState = objc_getClass("DNDState"); MSHookMessageEx(_logos_class$Lune$DNDState, @selector(isActive), (IMP)&_logos_method$Lune$DNDState$isActive, (IMP*)&_logos_orig$Lune$DNDState$isActive);Class _logos_class$Lune$SBRingerControl = objc_getClass("SBRingerControl"); MSHookMessageEx(_logos_class$Lune$SBRingerControl, @selector(isRingerMuted), (IMP)&_logos_method$Lune$SBRingerControl$isRingerMuted, (IMP*)&_logos_orig$Lune$SBRingerControl$isRingerMuted);Class _logos_class$Lune$SBRingerHUDView = objc_getClass("SBRingerHUDView"); MSHookMessageEx(_logos_class$Lune$SBRingerHUDView, @selector(isSilent), (IMP)&_logos_method$Lune$SBRingerHUDView$isSilent, (IMP*)&_logos_orig$Lune$SBRingerHUDView$isSilent);}
+            {Class _logos_class$Lune$SBFLockScreenDateView = objc_getClass("SBFLockScreenDateView"); MSHookMessageEx(_logos_class$Lune$SBFLockScreenDateView, @selector(layoutSubviews), (IMP)&_logos_method$Lune$SBFLockScreenDateView$layoutSubviews, (IMP*)&_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews);{ char _typeEncoding[1024]; unsigned int i = 0; _typeEncoding[i] = 'v'; i += 1; _typeEncoding[i] = '@'; i += 1; _typeEncoding[i] = ':'; i += 1; _typeEncoding[i] = '\0'; class_addMethod(_logos_class$Lune$SBFLockScreenDateView, @selector(setMoon), (IMP)&_logos_method$Lune$SBFLockScreenDateView$setMoon, _typeEncoding); }Class _logos_class$Lune$DNDNotificationsService = objc_getClass("DNDNotificationsService"); MSHookMessageEx(_logos_class$Lune$DNDNotificationsService, @selector(_queue_postOrRemoveNotificationWithUpdatedBehavior:significantTimeChange:), (IMP)&_logos_method$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$, (IMP*)&_logos_orig$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$);Class _logos_class$Lune$DNDState = objc_getClass("DNDState"); MSHookMessageEx(_logos_class$Lune$DNDState, @selector(isActive), (IMP)&_logos_method$Lune$DNDState$isActive, (IMP*)&_logos_orig$Lune$DNDState$isActive);Class _logos_class$Lune$SBRingerControl = objc_getClass("SBRingerControl"); MSHookMessageEx(_logos_class$Lune$SBRingerControl, @selector(isRingerMuted), (IMP)&_logos_method$Lune$SBRingerControl$isRingerMuted, (IMP*)&_logos_orig$Lune$SBRingerControl$isRingerMuted);}
             return;
         } else {
             dpkgInvalid = YES;

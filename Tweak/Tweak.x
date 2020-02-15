@@ -173,9 +173,9 @@
     [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
     [pfs registerBool:&hideDNDBannerSwitch default:YES forKey:@"hideDNDBanner"];
     // Custom Options
-    [pfs registerObject:&xCordinate default:@"5" forKey:@"xcordinates"];
+    [pfs registerObject:&xCordinate default:@"150" forKey:@"xcordinates"];
     [pfs registerObject:&yCordinate default:@"215" forKey:@"ycordinates"];
-    [pfs registerObject:&moonSize default:@"20" forKey:@"size"];
+    [pfs registerObject:&moonSize default:@"15" forKey:@"size"];
     [pfs registerObject:&moonIconList default:@"0" forKey:@"moonIcon"];
     [pfs registerBool:&ringerIconSwitch default:NO forKey:@"ringerIcon"];
     [pfs registerBool:&preferRingerIconSwitch default:NO forKey:@"preferRingerIcon"];

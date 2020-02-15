@@ -42,7 +42,7 @@
 			<key>cell</key>
 			<string>PSSliderCell</string>
 			<key>default</key>
-			<real>5</real>
+			<real>150</real>
 			<key>defaults</key>
 			<string>sh.litten.lunepreferences</string>
 			<key>key</key>
@@ -96,7 +96,7 @@
 			<key>cell</key>
 			<string>PSSliderCell</string>
 			<key>default</key>
-			<real>20</real>
+			<real>15</real>
 			<key>defaults</key>
 			<string>sh.litten.lunepreferences</string>
 			<key>key</key>
