@@ -14,14 +14,19 @@ UIImageView* dndImageView;
 // Option Switches
 BOOL enabled = YES;
 BOOL hideDNDBannerSwitch = YES;
+BOOL ringerIconSwitch = NO;
+BOOL preferRingerIconSwitch = NO;
 
-// Cordinate Sliders
+// Coordinate Sliders
 NSString* xCordinate = @"5";
 NSString* yCordinate = @"215";
 NSString* moonSize = @"20";
 NSString* moonIconList = @"0";
+NSString* moonIconRingerList = @"6";
 
+// Detection Variables
 BOOL isDNDActive;
+BOOL isRingerSilent;
 
 @interface SBFLockScreenDateView : UIView
 - (void)layoutSubviews;

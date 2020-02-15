@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Ringer Settings - iOS 13 Only</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>ringerIcon</string>
+			<key>label</key>
+			<string>Show Icon For Muted Ringer</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+        <dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>preferRingerIcon</string>
+			<key>label</key>
+			<string>Prefer Ringer Icon</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>6</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>label</key>
+			<string>Moon Icon:</string>
+			<key>key</key>
+			<string>moonIconRinger</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Moon 1</string>
+				<string>Moon 2</string>
+				<string>Moon 3</string>
+				<string>Moon 4</string>
+				<string>Star 1</string>
+				<string>Heart 1</string>
+				<string>Ringer 1</string>
+			</array>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+	</array>
+	<key>title</key>
+	<string>Ringer Settings</string>
+</dict>
+</plist>

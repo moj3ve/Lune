@@ -17,15 +17,31 @@
 %new
 - (void)setMoon {
 
-    if (isDNDActive) {
+    if (isDNDActive || (isRingerSilent && ringerIconSwitch)) {
         // Get The Values From The Sliders
         double xCordinateValue = [xCordinate doubleValue];
         double yCordinateValue = [yCordinate doubleValue];
         double moonSizeValue = [moonSize doubleValue];
         int moonIconValue = [moonIconList intValue];
+        int moonIconRingerValue = [moonIconRingerList intValue];
         // Set The Image, Mode And Postition
         dndImageView = [[UIImageView alloc] init];
-        dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]]; // Set The Moon Icon To The One The User Has Chosen
+        if (enabled && ringerIconSwitch) {
+            if (isRingerSilent && preferRingerIconSwitch) {
+                dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue]]; 
+
+            } else if (isRingerSilent && !isDNDActive) {
+                dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue]]; 
+
+            } else {
+                dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]]; 
+
+            }
+
+        } else if (enabled && !ringerIconSwitch) {
+            dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]]; 
+
+        }
         dndImageView.contentMode = UIViewContentModeScaleAspectFit;
         dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue);
         // Add It To The View
@@ -61,6 +77,18 @@
 - (BOOL)isActive {
 
     isDNDActive = %orig;
+
+    return %orig;
+
+}
+
+%end
+// Check Of The Ringer Is Muted (iOS 13 Only)
+%hook SBRingerControl
+
+- (BOOL)isRingerMuted {
+
+    isRingerSilent = %orig;
 
     return %orig;
 
@@ -149,6 +177,9 @@
     [pfs registerObject:&yCordinate default:@"215" forKey:@"ycordinates"];
     [pfs registerObject:&moonSize default:@"20" forKey:@"size"];
     [pfs registerObject:&moonIconList default:@"0" forKey:@"moonIcon"];
+    [pfs registerBool:&ringerIconSwitch default:NO forKey:@"ringerIcon"];
+    [pfs registerBool:&preferRingerIconSwitch default:NO forKey:@"preferRingerIcon"];
+    [pfs registerObject:&moonIconRingerList default:@"6" forKey:@"moonIconRinger"];
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;

@@ -48,9 +48,9 @@
 			<key>key</key>
 			<string>xcordinates</string>
 			<key>min</key>
-			<real>0</real>
+			<real>-100</real>
 			<key>max</key>
-			<real>1000</real>
+			<real>500</real>
 			<key>showValue</key>
 			<true/>
 			<key>isSegmented</key>
@@ -75,9 +75,9 @@
 			<key>key</key>
 			<string>ycordinates</string>
 			<key>min</key>
-			<real>0</real>
+			<real>-100</real>
 			<key>max</key>
-			<real>1000</real>
+			<real>750</real>
 			<key>showValue</key>
 			<true/>
 			<key>isSegmented</key>
@@ -133,7 +133,7 @@
 			<key>PostNotification</key>
 			<string>sh.litten.lunepreferences/ReloadPrefs</string>
 		</dict>
-				<dict>
+		<dict>
 			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
@@ -154,6 +154,7 @@
 				<integer>3</integer>
 				<integer>4</integer>
 				<integer>5</integer>
+				<integer>6</integer>
 			</array>
 			<key>validTitles</key>
 			<array>
@@ -163,10 +164,21 @@
 				<string>Moon 4</string>
 				<string>Star 1</string>
 				<string>Heart 1</string>
+				<string>Ringer 1</string>
 			</array>
 			<key>PostNotification</key>
 			<string>sh.litten.lunepreferences/ReloadPrefs</string>
 		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Ringer Settings</string>
+ 			<key>detail</key>
+ 			<string>LNESubPrefsListController</string>
+ 			<key>LNESub</key>
+ 			<string>ringerSettings</string>
+ 		</dict>
 
 		<dict>
 			<key>cell</key>
