@@ -14,6 +14,8 @@ UIImageView* dndImageView;
 // Option Switches
 BOOL enabled = YES;
 BOOL hideDNDBannerSwitch = YES;
+BOOL colorTimeSwitch = NO;
+BOOL colorMoonSwitch = NO;
 BOOL ringerIconSwitch = NO;
 BOOL preferRingerIconSwitch = NO;
 

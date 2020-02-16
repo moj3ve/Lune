@@ -69,7 +69,7 @@
 			<key>cell</key>
 			<string>PSSliderCell</string>
 			<key>default</key>
-			<real>215</real>
+			<real>115</real>
 			<key>defaults</key>
 			<string>sh.litten.lunepreferences</string>
 			<key>key</key>
@@ -118,6 +118,34 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Advanced Settings</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>colorTime</string>
+			<key>label</key>
+			<string>Color Time Purple</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>colorMoon</string>
+			<key>label</key>
+			<string>Color Moon Purple</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>

@@ -17,38 +17,83 @@
 %new
 - (void)setMoon {
 
-    if (isDNDActive || (isRingerSilent && ringerIconSwitch)) {
+    if (enabled && (isDNDActive || (isRingerSilent && ringerIconSwitch))) {
         // Get The Values From The Sliders
         double xCordinateValue = [xCordinate doubleValue];
         double yCordinateValue = [yCordinate doubleValue];
         double moonSizeValue = [moonSize doubleValue];
         int moonIconValue = [moonIconList intValue];
         int moonIconRingerValue = [moonIconRingerList intValue];
+        NSString* moonIconPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]; // Setting The Paths Of The Images
+        NSString* moonIconRingerPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue];
         // Set The Image, Mode And Postition
         dndImageView = [[UIImageView alloc] init];
-        if (enabled && ringerIconSwitch) {
-            if (isRingerSilent && preferRingerIconSwitch) {
-                dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue]]; 
+        if (!colorMoonSwitch) { // If The Moon Should Not Be Colored We Go Straight To The Image Initialisation
+            if (ringerIconSwitch) {
+                if (isRingerSilent && preferRingerIconSwitch) {
+                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
 
-            } else if (isRingerSilent && !isDNDActive) {
-                dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue]]; 
+                } else if (isRingerSilent && !isDNDActive) {
+                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
 
-            } else {
-                dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]]; 
+                } else {
+                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconPath]; 
+
+                }
+
+            } else if (enabled && !ringerIconSwitch) {
+                dndImageView.image = [UIImage imageWithContentsOfFile: moonIconPath]; 
 
             }
 
-        } else if (enabled && !ringerIconSwitch) {
-            dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]]; 
+        } else if (colorMoonSwitch) { // Else If The Moon Should Be Colored We Have To Create An UIImage first, Setting The Image, Mode And Color
+            UIImage* moonImage;
+            if (ringerIconSwitch) {
+                if (isRingerSilent && preferRingerIconSwitch) {
+                    moonImage = [UIImage imageWithContentsOfFile: moonIconRingerPath];  // Allocation Of The Image From The Path
+
+                } else if (isRingerSilent && !isDNDActive) {
+                    moonImage = [UIImage imageWithContentsOfFile: moonIconRingerPath];
+
+                } else {
+                    moonImage = [UIImage imageWithContentsOfFile: moonIconPath];
+
+                }
+
+            } else if (enabled && !ringerIconSwitch) {
+                moonImage = [UIImage imageWithContentsOfFile: moonIconPath];
+
+            }
+
+            moonImage = [moonImage imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate]; // Setting The Mode So It Can Be Colored
+            dndImageView.tintColor = [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0]; // Setting The Color
+            dndImageView.image = moonImage; // And Setting The Image From The UIImageView
 
         }
-        dndImageView.contentMode = UIViewContentModeScaleAspectFit;
-        dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue);
+
+        dndImageView.contentMode = UIViewContentModeScaleAspectFit; // Display Mode Of The UIImageView
+        dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue); // Postition And Size
         // Add It To The View
         [self addSubview: dndImageView];
 
     } else {
         [dndImageView removeFromSuperview]; // If DND Is Disabled Remove The Moon From The View
+
+    }
+
+}
+
+%end
+
+%hook _UIStatusBarStringView
+
+- (void)setTextColor:(id)arg1 {
+
+    if (colorTimeSwitch && isDNDActive) {
+        %orig([UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0]);
+
+    } else if (!colorTimeSwitch || !isDNDActive) {
+        %orig;
 
     }
 
@@ -172,6 +217,8 @@
     // Enabled and Reminder Options
     [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
     [pfs registerBool:&hideDNDBannerSwitch default:YES forKey:@"hideDNDBanner"];
+    [pfs registerBool:&colorTimeSwitch default:NO forKey:@"colorTime"];
+    [pfs registerBool:&colorMoonSwitch default:NO forKey:@"colorMoon"];
     // Custom Options
     [pfs registerObject:&xCordinate default:@"150" forKey:@"xcordinates"];
     [pfs registerObject:&yCordinate default:@"215" forKey:@"ycordinates"];

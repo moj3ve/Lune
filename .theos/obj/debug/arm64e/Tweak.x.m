@@ -22,11 +22,11 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class DNDNotificationsService; @class DNDState; @class SBRingerControl; @class SBFLockScreenDateView; @class SBIconController; 
+@class SBRingerControl; @class SBIconController; @class SBFLockScreenDateView; @class DNDState; @class DNDNotificationsService; @class _UIStatusBarStringView; 
 
 
 #line 3 "Tweak.x"
-static void (*_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Lune$SBFLockScreenDateView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$)(_LOGOS_SELF_TYPE_NORMAL DNDNotificationsService* _LOGOS_SELF_CONST, SEL, BOOL, BOOL); static void _logos_method$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$(_LOGOS_SELF_TYPE_NORMAL DNDNotificationsService* _LOGOS_SELF_CONST, SEL, BOOL, BOOL); static BOOL (*_logos_orig$Lune$DNDState$isActive)(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$DNDState$isActive(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL (*_logos_orig$Lune$SBRingerControl$isRingerMuted)(_LOGOS_SELF_TYPE_NORMAL SBRingerControl* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$SBRingerControl$isRingerMuted(_LOGOS_SELF_TYPE_NORMAL SBRingerControl* _LOGOS_SELF_CONST, SEL); 
+static void (*_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Lune$SBFLockScreenDateView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Lune$_UIStatusBarStringView$setTextColor$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Lune$_UIStatusBarStringView$setTextColor$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$)(_LOGOS_SELF_TYPE_NORMAL DNDNotificationsService* _LOGOS_SELF_CONST, SEL, BOOL, BOOL); static void _logos_method$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$(_LOGOS_SELF_TYPE_NORMAL DNDNotificationsService* _LOGOS_SELF_CONST, SEL, BOOL, BOOL); static BOOL (*_logos_orig$Lune$DNDState$isActive)(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$DNDState$isActive(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL (*_logos_orig$Lune$SBRingerControl$isRingerMuted)(_LOGOS_SELF_TYPE_NORMAL SBRingerControl* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$SBRingerControl$isRingerMuted(_LOGOS_SELF_TYPE_NORMAL SBRingerControl* _LOGOS_SELF_CONST, SEL); 
 
 
 
@@ -43,31 +43,60 @@ static void _logos_method$Lune$SBFLockScreenDateView$layoutSubviews(_LOGOS_SELF_
 
 static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
-    if (isDNDActive || (isRingerSilent && ringerIconSwitch)) {
+    if (enabled && (isDNDActive || (isRingerSilent && ringerIconSwitch))) {
         
         double xCordinateValue = [xCordinate doubleValue];
         double yCordinateValue = [yCordinate doubleValue];
         double moonSizeValue = [moonSize doubleValue];
         int moonIconValue = [moonIconList intValue];
         int moonIconRingerValue = [moonIconRingerList intValue];
+        NSString* moonIconPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue];
+        NSString* moonIconRingerPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue];
         
         dndImageView = [[UIImageView alloc] init];
-        if (enabled && ringerIconSwitch) {
-            if (isRingerSilent && preferRingerIconSwitch) {
-                dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue]]; 
+        if (!colorMoonSwitch) {
+            if (ringerIconSwitch) {
+                if (isRingerSilent && preferRingerIconSwitch) {
+                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
 
-            } else if (isRingerSilent && !isDNDActive) {
-                dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue]]; 
+                } else if (isRingerSilent && !isDNDActive) {
+                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
 
-            } else {
-                dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]]; 
+                } else {
+                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconPath]; 
+
+                }
+
+            } else if (enabled && !ringerIconSwitch) {
+                dndImageView.image = [UIImage imageWithContentsOfFile: moonIconPath]; 
 
             }
 
-        } else if (enabled && !ringerIconSwitch) {
-            dndImageView.image = [UIImage imageWithContentsOfFile: [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]]; 
+        } else if (colorMoonSwitch) {
+            UIImage* moonImage;
+            if (ringerIconSwitch) {
+                if (isRingerSilent && preferRingerIconSwitch) {
+                    moonImage = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
+
+                } else if (isRingerSilent && !isDNDActive) {
+                    moonImage = [UIImage imageWithContentsOfFile: moonIconRingerPath];
+
+                } else {
+                    moonImage = [UIImage imageWithContentsOfFile: moonIconPath];
+
+                }
+
+            } else if (enabled && !ringerIconSwitch) {
+                moonImage = [UIImage imageWithContentsOfFile: moonIconPath];
+
+            }
+
+            moonImage = [moonImage imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+            dndImageView.tintColor = [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0];
+            dndImageView.image = moonImage;
 
         }
+
         dndImageView.contentMode = UIViewContentModeScaleAspectFit;
         dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue);
         
@@ -75,6 +104,22 @@ static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NO
 
     } else {
         [dndImageView removeFromSuperview]; 
+
+    }
+
+}
+
+
+
+
+
+static void _logos_method$Lune$_UIStatusBarStringView$setTextColor$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd, id arg1) {
+
+    if (colorTimeSwitch && isDNDActive) {
+        _logos_orig$Lune$_UIStatusBarStringView$setTextColor$(self, _cmd, [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0]);
+
+    } else if (!colorTimeSwitch || !isDNDActive) {
+        _logos_orig$Lune$_UIStatusBarStringView$setTextColor$(self, _cmd, arg1);
 
     }
 
@@ -154,7 +199,7 @@ static void _logos_method$LuneIntegrityFail$SBIconController$viewDidAppear$(_LOG
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_e6244da5(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_0267e2ff(int __unused argc, char __unused **argv, char __unused **envp) {
 
     if (![NSProcessInfo processInfo]) return;
     NSString *processName = [NSProcessInfo processInfo].processName;
@@ -198,6 +243,8 @@ static __attribute__((constructor)) void _logosLocalCtor_e6244da5(int __unused a
     
     [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
     [pfs registerBool:&hideDNDBannerSwitch default:YES forKey:@"hideDNDBanner"];
+    [pfs registerBool:&colorTimeSwitch default:NO forKey:@"colorTime"];
+    [pfs registerBool:&colorMoonSwitch default:NO forKey:@"colorMoon"];
     
     [pfs registerObject:&xCordinate default:@"150" forKey:@"xcordinates"];
     [pfs registerObject:&yCordinate default:@"215" forKey:@"ycordinates"];
@@ -214,7 +261,7 @@ static __attribute__((constructor)) void _logosLocalCtor_e6244da5(int __unused a
         );
 
         if (ok && [@"litten" isEqualToString:@"litten"]) {
-            {Class _logos_class$Lune$SBFLockScreenDateView = objc_getClass("SBFLockScreenDateView"); MSHookMessageEx(_logos_class$Lune$SBFLockScreenDateView, @selector(layoutSubviews), (IMP)&_logos_method$Lune$SBFLockScreenDateView$layoutSubviews, (IMP*)&_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews);{ char _typeEncoding[1024]; unsigned int i = 0; _typeEncoding[i] = 'v'; i += 1; _typeEncoding[i] = '@'; i += 1; _typeEncoding[i] = ':'; i += 1; _typeEncoding[i] = '\0'; class_addMethod(_logos_class$Lune$SBFLockScreenDateView, @selector(setMoon), (IMP)&_logos_method$Lune$SBFLockScreenDateView$setMoon, _typeEncoding); }Class _logos_class$Lune$DNDNotificationsService = objc_getClass("DNDNotificationsService"); MSHookMessageEx(_logos_class$Lune$DNDNotificationsService, @selector(_queue_postOrRemoveNotificationWithUpdatedBehavior:significantTimeChange:), (IMP)&_logos_method$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$, (IMP*)&_logos_orig$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$);Class _logos_class$Lune$DNDState = objc_getClass("DNDState"); MSHookMessageEx(_logos_class$Lune$DNDState, @selector(isActive), (IMP)&_logos_method$Lune$DNDState$isActive, (IMP*)&_logos_orig$Lune$DNDState$isActive);Class _logos_class$Lune$SBRingerControl = objc_getClass("SBRingerControl"); MSHookMessageEx(_logos_class$Lune$SBRingerControl, @selector(isRingerMuted), (IMP)&_logos_method$Lune$SBRingerControl$isRingerMuted, (IMP*)&_logos_orig$Lune$SBRingerControl$isRingerMuted);}
+            {Class _logos_class$Lune$SBFLockScreenDateView = objc_getClass("SBFLockScreenDateView"); MSHookMessageEx(_logos_class$Lune$SBFLockScreenDateView, @selector(layoutSubviews), (IMP)&_logos_method$Lune$SBFLockScreenDateView$layoutSubviews, (IMP*)&_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews);{ char _typeEncoding[1024]; unsigned int i = 0; _typeEncoding[i] = 'v'; i += 1; _typeEncoding[i] = '@'; i += 1; _typeEncoding[i] = ':'; i += 1; _typeEncoding[i] = '\0'; class_addMethod(_logos_class$Lune$SBFLockScreenDateView, @selector(setMoon), (IMP)&_logos_method$Lune$SBFLockScreenDateView$setMoon, _typeEncoding); }Class _logos_class$Lune$_UIStatusBarStringView = objc_getClass("_UIStatusBarStringView"); MSHookMessageEx(_logos_class$Lune$_UIStatusBarStringView, @selector(setTextColor:), (IMP)&_logos_method$Lune$_UIStatusBarStringView$setTextColor$, (IMP*)&_logos_orig$Lune$_UIStatusBarStringView$setTextColor$);Class _logos_class$Lune$DNDNotificationsService = objc_getClass("DNDNotificationsService"); MSHookMessageEx(_logos_class$Lune$DNDNotificationsService, @selector(_queue_postOrRemoveNotificationWithUpdatedBehavior:significantTimeChange:), (IMP)&_logos_method$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$, (IMP*)&_logos_orig$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$);Class _logos_class$Lune$DNDState = objc_getClass("DNDState"); MSHookMessageEx(_logos_class$Lune$DNDState, @selector(isActive), (IMP)&_logos_method$Lune$DNDState$isActive, (IMP*)&_logos_orig$Lune$DNDState$isActive);Class _logos_class$Lune$SBRingerControl = objc_getClass("SBRingerControl"); MSHookMessageEx(_logos_class$Lune$SBRingerControl, @selector(isRingerMuted), (IMP)&_logos_method$Lune$SBRingerControl$isRingerMuted, (IMP*)&_logos_orig$Lune$SBRingerControl$isRingerMuted);}
             return;
         } else {
             dpkgInvalid = YES;
