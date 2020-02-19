@@ -123,6 +123,8 @@
 
     isDNDActive = %orig;
 
+    [pfs setBool: isDNDActive forKey: @"isDNDActiveBool"];
+
     return %orig;
 
 }
@@ -227,6 +229,8 @@
     [pfs registerBool:&ringerIconSwitch default:NO forKey:@"ringerIcon"];
     [pfs registerBool:&preferRingerIconSwitch default:NO forKey:@"preferRingerIcon"];
     [pfs registerObject:&moonIconRingerList default:@"6" forKey:@"moonIconRinger"];
+    
+    [pfs registerBool:&isDNDActive default:NO forKey:@"isDNDActiveBool"];
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;

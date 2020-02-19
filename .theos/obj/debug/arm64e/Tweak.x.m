@@ -22,7 +22,7 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class SBRingerControl; @class SBIconController; @class SBFLockScreenDateView; @class DNDState; @class DNDNotificationsService; @class _UIStatusBarStringView; 
+@class _UIStatusBarStringView; @class SBIconController; @class SBRingerControl; @class DNDState; @class SBFLockScreenDateView; @class DNDNotificationsService; 
 
 
 #line 3 "Tweak.x"
@@ -50,11 +50,11 @@ static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NO
         double moonSizeValue = [moonSize doubleValue];
         int moonIconValue = [moonIconList intValue];
         int moonIconRingerValue = [moonIconRingerList intValue];
-        NSString* moonIconPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue];
+        NSString* moonIconPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]; 
         NSString* moonIconRingerPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue];
         
         dndImageView = [[UIImageView alloc] init];
-        if (!colorMoonSwitch) {
+        if (!colorMoonSwitch) { 
             if (ringerIconSwitch) {
                 if (isRingerSilent && preferRingerIconSwitch) {
                     dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
@@ -72,11 +72,11 @@ static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NO
 
             }
 
-        } else if (colorMoonSwitch) {
+        } else if (colorMoonSwitch) { 
             UIImage* moonImage;
             if (ringerIconSwitch) {
                 if (isRingerSilent && preferRingerIconSwitch) {
-                    moonImage = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
+                    moonImage = [UIImage imageWithContentsOfFile: moonIconRingerPath];  
 
                 } else if (isRingerSilent && !isDNDActive) {
                     moonImage = [UIImage imageWithContentsOfFile: moonIconRingerPath];
@@ -91,14 +91,14 @@ static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NO
 
             }
 
-            moonImage = [moonImage imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
-            dndImageView.tintColor = [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0];
-            dndImageView.image = moonImage;
+            moonImage = [moonImage imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate]; 
+            dndImageView.tintColor = [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0]; 
+            dndImageView.image = moonImage; 
 
         }
 
-        dndImageView.contentMode = UIViewContentModeScaleAspectFit;
-        dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue);
+        dndImageView.contentMode = UIViewContentModeScaleAspectFit; 
+        dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue); 
         
         [self addSubview: dndImageView];
 
@@ -148,6 +148,8 @@ static void _logos_method$Lune$DNDNotificationsService$_queue_postOrRemoveNotifi
 static BOOL _logos_method$Lune$DNDState$isActive(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 
     isDNDActive = _logos_orig$Lune$DNDState$isActive(self, _cmd);
+
+    [pfs setBool: isDNDActive forKey: @"isDNDActiveBool"];
 
     return _logos_orig$Lune$DNDState$isActive(self, _cmd);
 
@@ -199,7 +201,7 @@ static void _logos_method$LuneIntegrityFail$SBIconController$viewDidAppear$(_LOG
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_0267e2ff(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_a75f682b(int __unused argc, char __unused **argv, char __unused **envp) {
 
     if (![NSProcessInfo processInfo]) return;
     NSString *processName = [NSProcessInfo processInfo].processName;
@@ -253,6 +255,8 @@ static __attribute__((constructor)) void _logosLocalCtor_0267e2ff(int __unused a
     [pfs registerBool:&ringerIconSwitch default:NO forKey:@"ringerIcon"];
     [pfs registerBool:&preferRingerIconSwitch default:NO forKey:@"preferRingerIcon"];
     [pfs registerObject:&moonIconRingerList default:@"6" forKey:@"moonIconRinger"];
+    
+    [pfs registerBool:&isDNDActive default:NO forKey:@"isDNDActiveBool"];
 
 	if (!dpkgInvalid && enabled) {
         BOOL ok = false;
