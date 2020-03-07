@@ -1,6 +1,8 @@
 #line 1 "Tweak.x"
 #import "Lune.h"
 
+BOOL enabled = NO;
+
 
 #include <substrate.h>
 #if defined(__clang__)
@@ -22,10 +24,10 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class _UIStatusBarStringView; @class SBIconController; @class SBRingerControl; @class DNDState; @class SBFLockScreenDateView; @class DNDNotificationsService; 
+@class _UIStatusBarStringView; @class DNDState; @class SBRingerControl; @class SBIconController; @class DNDNotificationsService; @class SBFLockScreenDateView; 
 
 
-#line 3 "Tweak.x"
+#line 5 "Tweak.x"
 static void (*_logos_orig$Lune$SBFLockScreenDateView$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Lune$SBFLockScreenDateView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$Lune$_UIStatusBarStringView$setTextColor$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST, SEL, id); static void _logos_method$Lune$_UIStatusBarStringView$setTextColor$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST, SEL, id); static void (*_logos_orig$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$)(_LOGOS_SELF_TYPE_NORMAL DNDNotificationsService* _LOGOS_SELF_CONST, SEL, BOOL, BOOL); static void _logos_method$Lune$DNDNotificationsService$_queue_postOrRemoveNotificationWithUpdatedBehavior$significantTimeChange$(_LOGOS_SELF_TYPE_NORMAL DNDNotificationsService* _LOGOS_SELF_CONST, SEL, BOOL, BOOL); static BOOL (*_logos_orig$Lune$DNDState$isActive)(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$DNDState$isActive(_LOGOS_SELF_TYPE_NORMAL DNDState* _LOGOS_SELF_CONST, SEL); static BOOL (*_logos_orig$Lune$SBRingerControl$isRingerMuted)(_LOGOS_SELF_TYPE_NORMAL SBRingerControl* _LOGOS_SELF_CONST, SEL); static BOOL _logos_method$Lune$SBRingerControl$isRingerMuted(_LOGOS_SELF_TYPE_NORMAL SBRingerControl* _LOGOS_SELF_CONST, SEL); 
 
 
@@ -99,6 +101,24 @@ static void _logos_method$Lune$SBFLockScreenDateView$setMoon(_LOGOS_SELF_TYPE_NO
 
         dndImageView.contentMode = UIViewContentModeScaleAspectFit; 
         dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue); 
+    
+    if (glowSwitch) {
+        dndImageView.layer.shadowOffset = CGSizeZero;
+
+        if (!colorMoonSwitch)
+            dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+        else if (colorMoonSwitch && purpleGlowIfPurpleMoonSwitch)
+            dndImageView.layer.shadowColor = [[UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0] CGColor];
+        else
+            dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+
+        if (!customGlowSwitch || !customShadowRadiusSwitch)
+            dndImageView.layer.shadowRadius = 5;
+
+        if (!customGlowSwitch || !customShadowOpacitySwitch)
+            dndImageView.layer.shadowOpacity = 1;
+
+    }
         
         [self addSubview: dndImageView];
 
@@ -201,7 +221,7 @@ static void _logos_method$LuneIntegrityFail$SBIconController$viewDidAppear$(_LOG
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_a75f682b(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_c93c8224(int __unused argc, char __unused **argv, char __unused **envp) {
 
     if (![NSProcessInfo processInfo]) return;
     NSString *processName = [NSProcessInfo processInfo].processName;
@@ -243,15 +263,22 @@ static __attribute__((constructor)) void _logosLocalCtor_a75f682b(int __unused a
 
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.lunepreferences"];
     
-    [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
-    [pfs registerBool:&hideDNDBannerSwitch default:YES forKey:@"hideDNDBanner"];
+    [pfs registerBool:&enabled default:nil forKey:@"Enabled"];
     [pfs registerBool:&colorTimeSwitch default:NO forKey:@"colorTime"];
     [pfs registerBool:&colorMoonSwitch default:NO forKey:@"colorMoon"];
+    [pfs registerBool:&glowSwitch default:NO forKey:@"glow"];
+    [pfs registerBool:&hideDNDBannerSwitch default:NO forKey:@"hideDNDBanner"];
     
     [pfs registerObject:&xCordinate default:@"150" forKey:@"xcordinates"];
     [pfs registerObject:&yCordinate default:@"215" forKey:@"ycordinates"];
     [pfs registerObject:&moonSize default:@"15" forKey:@"size"];
     [pfs registerObject:&moonIconList default:@"0" forKey:@"moonIcon"];
+    
+    [pfs registerBool:&customGlowSwitch default:NO forKey:@"customGlow"];
+    [pfs registerBool:&purpleGlowIfPurpleMoonSwitch default:NO forKey:@"purpleGlowIfPurpleMoon"];
+    [pfs registerBool:&customShadowRadiusSwitch default:NO forKey:@"customShadowRadius"];
+    [pfs registerBool:&customShadowOpacitySwitch default:NO forKey:@"customShadowOpacity"];
+    
     [pfs registerBool:&ringerIconSwitch default:NO forKey:@"ringerIcon"];
     [pfs registerBool:&preferRingerIconSwitch default:NO forKey:@"preferRingerIcon"];
     [pfs registerObject:&moonIconRingerList default:@"6" forKey:@"moonIconRinger"];

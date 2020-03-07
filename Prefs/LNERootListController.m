@@ -1,4 +1,7 @@
 #include "LNERootListController.h"
+#import "../Tweak/Lune.h"
+
+BOOL enabled = NO;
 
 @implementation LNERootListController
 
@@ -8,18 +11,17 @@
     if (self) {
         LNEAppearanceSettings *appearanceSettings = [[LNEAppearanceSettings alloc] init];
         self.hb_appearanceSettings = appearanceSettings;
-        self.respringButton = [[UIBarButtonItem alloc] initWithTitle:@"ReSpring"
-                                    style:UIBarButtonItemStylePlain
-                                    target:self
-                                    action:@selector(respring)];
-        self.respringButton.tintColor = [UIColor whiteColor];
-        self.navigationItem.rightBarButtonItem = self.respringButton;
+        self.enableSwitch = [[UISwitch alloc] init];
+        self.enableSwitch.onTintColor = [UIColor colorWithRed:1.00 green:0.96 blue:0.64 alpha:1.0];
+        [self.enableSwitch addTarget:self action:@selector(toggleState) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* switchy = [[UIBarButtonItem alloc] initWithCustomView: self.enableSwitch];
+        self.navigationItem.rightBarButtonItem = switchy;
 
         self.navigationItem.titleView = [UIView new];
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.text = @"Lune";
+        self.titleLabel.text = @"1.3";
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.navigationItem.titleView addSubview:self.titleLabel];
@@ -100,6 +102,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+
 	[super viewDidAppear:animated];
 
     if (@available(iOS 11, *)) {
@@ -109,7 +112,7 @@
 
     [self.navigationController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 
-    [self showThanksAlert];
+    [self setEnableSwitchState];
 
 }
 
@@ -138,43 +141,85 @@
     self.headerImageView.frame = CGRectMake(0, offsetY, self.headerView.frame.size.width, 200 - offsetY);
 }
 
--(void)respring {
-	UIAlertController *respring = [UIAlertController alertControllerWithTitle:@"Lune"
-													 message:@"Do you really want to ReSpring?"
-													 preferredStyle:UIAlertControllerStyleAlert];
-	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-			[self respringUtil];
-	}];
+- (void)toggleState {
 
-	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-	[respring addAction:confirmAction];
-	[respring addAction:cancelAction];
-	[self presentViewController:respring animated:YES completion:nil];
+    self.enableSwitch.enabled = NO;
+
+    HBPreferences *pfs = [[HBPreferences alloc] initWithIdentifier: @"sh.litten.lunepreferences"];
+    
+    if ([[pfs objectForKey:@"Enabled"] isEqual: @(NO)]) {
+        enabled = YES;
+        [pfs setBool:enabled forKey: @"Enabled"];
+        [self respringUtil];
+        
+    } else if ([[pfs objectForKey:@"Enabled"] isEqual: @(YES)]) {
+        enabled = NO;
+        [pfs setBool:enabled forKey: @"Enabled"];
+        [self respringUtil];
+
+    }
 
 }
 
--(void)respringUtil {
+- (void)setEnableSwitchState {
+
+    NSString* path = [NSString stringWithFormat:@"/var/mobile/Library/Preferences/sh.litten.lunepreferences.plist"];
+    NSMutableDictionary* dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    NSSet* allKeys = [NSSet setWithArray:[dictionary allKeys]];
+    
+    if (!([allKeys containsObject:@"Enabled"])) {
+        [self.enableSwitch setOn:NO animated: YES];
+
+    } else if ([[dictionary objectForKey:@"Enabled"] isEqual: @(YES)]) {
+        [self.enableSwitch setOn:YES animated: YES];
+
+    } else if ([[dictionary objectForKey:@"Enabled"] isEqual: @(NO)]) {
+        [self.enableSwitch setOn:NO animated: YES];
+        
+    }
+
+}
+
+- (void)resetPrompt {
+
+    UIAlertController *resetAlert = [UIAlertController alertControllerWithTitle:@"Lune"
+	message:@"Do You Really Want To Reset Your Preferences?"
+	preferredStyle:UIAlertControllerStyleActionSheet];
+	
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Yep" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+			
+        [self resetPreferences];
+
+	}];
+
+	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Nope" style:UIAlertActionStyleCancel handler:nil];
+
+	[resetAlert addAction:confirmAction];
+	[resetAlert addAction:cancelAction];
+
+	[self presentViewController:resetAlert animated:YES completion:nil];
+
+}
+
+- (void)resetPreferences {
+
+    HBPreferences *pfs = [[HBPreferences alloc] initWithIdentifier: @"sh.litten.lunepreferences"];
+    for (NSString *key in [pfs dictionaryRepresentation]) {
+        [pfs removeObjectForKey:key];
+
+    }
+    
+    [self.enableSwitch setOn:NO animated: YES];
+    [self respringUtil];
+
+}
+
+- (void)respringUtil {
+
 	NSTask *t = [[NSTask alloc] init];
     [t setLaunchPath:@"/usr/bin/killall"];
     [t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
     [t launch];
-}
-
-- (void)showThanksAlert {
-
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString* pathForLunePlist = @"/var/mobile/Library/Preferences/sh.litten.lunepreferences.plist";
-
-    if (!([fileManager fileExistsAtPath:pathForLunePlist])) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Lune"
-        message:@"Thanks For Downloading Lune 🌸\nI hope you enjoy it 😊\nIf you like it i would appreciate a little donation for my motivation to continue making free tweaks 💖\n\n[Toggle Anything In The Prefs To Make This Alert Not Show Anymore]"
-        preferredStyle:UIAlertControllerStyleAlert];
-
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Understood" style:UIAlertActionStyleCancel handler:nil];
-        [alert addAction:cancelAction];
-        [self presentViewController:alert animated:YES completion:nil];
-
-    }
 
 }
 

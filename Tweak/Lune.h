@@ -1,6 +1,5 @@
 #import <UIKit/UIKit.h>
 #import <Cephei/HBPreferences.h>
-#import <AudioToolbox/AudioServices.h>
 
 // Utils
 HBPreferences *pfs;
@@ -12,18 +11,29 @@ BOOL dpkgInvalid = NO;
 UIImageView* dndImageView;
 
 // Option Switches
-BOOL enabled = YES;
-BOOL hideDNDBannerSwitch = YES;
+extern BOOL enabled;
 BOOL colorTimeSwitch = NO;
 BOOL colorMoonSwitch = NO;
-BOOL ringerIconSwitch = NO;
-BOOL preferRingerIconSwitch = NO;
+BOOL glowSwitch = NO;
+BOOL hideDNDBannerSwitch = NO;
 
-// Coordinate Sliders
+// Coordinate Sliders, Size Slider And Moon Icon
 NSString* xCordinate = @"150";
 NSString* yCordinate = @"215";
 NSString* moonSize = @"15";
 NSString* moonIconList = @"0";
+
+// Custom Glow Options
+BOOL customGlowSwitch = NO;
+BOOL purpleGlowIfPurpleMoonSwitch = NO;
+BOOL customShadowRadiusSwitch = NO;
+BOOL customShadowOpacitySwitch = NO;
+NSString* radiusValue = @"0";
+NSString* opacityValue = @"0";
+
+// Ringer Options
+BOOL ringerIconSwitch = NO;
+BOOL preferRingerIconSwitch = NO;
 NSString* moonIconRingerList = @"6";
 
 // Detection Variables

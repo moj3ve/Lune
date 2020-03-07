@@ -11,13 +11,15 @@
 @interface LNERootListController : HBRootListController {
     UITableView * _table;
 }
-
-@property (nonatomic, retain) UIBarButtonItem *respringButton;
+@property(nonatomic, retain)UISwitch* enableSwitch;
 @property (nonatomic, retain) UIView *headerView;
 @property (nonatomic, retain) UIImageView *headerImageView;
 @property (nonatomic, retain) UILabel *titleLabel;
 @property (nonatomic, retain) UIImageView *iconView;
 
--(void)respring;
--(void)respringUtil;
+- (void)toggleState;
+- (void)setEnableSwitchState;
+- (void)resetPrompt;
+- (void)resetPreferences;
+- (void)respringUtil;
 @end

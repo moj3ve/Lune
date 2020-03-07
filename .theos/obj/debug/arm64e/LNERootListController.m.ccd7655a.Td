@@ -12,7 +12,7 @@
   /Users/alex/theos/vendor/lib/CepheiPrefs.framework/Headers/PSListController+HBTintAdditions.h \
   /Users/alex/theos/vendor/lib/CepheiPrefs.framework/Headers/HBAppearanceSettings.h \
   /Users/alex/theos/vendor/lib/Cephei.framework/Headers/HBPreferences.h \
-  NSTask.h
+  NSTask.h ../Tweak/Lune.h
 
 /Users/alex/theos/Prefix.pch:
 
@@ -43,3 +43,5 @@ LNERootListController.h:
 /Users/alex/theos/vendor/lib/Cephei.framework/Headers/HBPreferences.h:
 
 NSTask.h:
+
+../Tweak/Lune.h:

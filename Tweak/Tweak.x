@@ -1,5 +1,7 @@
 #import "Lune.h"
 
+BOOL enabled = NO;
+
 %group Lune
 
 %hook SBFLockScreenDateView
@@ -73,6 +75,31 @@
 
         dndImageView.contentMode = UIViewContentModeScaleAspectFit; // Display Mode Of The UIImageView
         dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue); // Postition And Size
+    // Add A Glow To The Moon
+    if (glowSwitch) {
+        double radius = [radiusValue doubleValue];
+        double opacity = [opacityValue doubleValue];
+
+        dndImageView.layer.shadowOffset = CGSizeZero;
+
+        if (!colorMoonSwitch)
+            dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+        else if (colorMoonSwitch && purpleGlowIfPurpleMoonSwitch)
+            dndImageView.layer.shadowColor = [[UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0] CGColor];
+        else
+            dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+
+        if (!customGlowSwitch || !customShadowRadiusSwitch)
+            dndImageView.layer.shadowRadius = 5;
+        else if (customGlowSwitch && customShadowRadiusSwitch)
+            dndImageView.layer.shadowRadius = radius;
+
+        if (!customGlowSwitch || !customShadowOpacitySwitch)
+            dndImageView.layer.shadowOpacity = 1;
+        else if (customGlowSwitch && customShadowOpacitySwitch)
+            dndImageView.layer.shadowOpacity = opacity;
+
+    }
         // Add It To The View
         [self addSubview: dndImageView];
 
@@ -217,15 +244,24 @@
 
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.lunepreferences"];
     // Enabled and Reminder Options
-    [pfs registerBool:&enabled default:YES forKey:@"Enabled"];
-    [pfs registerBool:&hideDNDBannerSwitch default:YES forKey:@"hideDNDBanner"];
+    [pfs registerBool:&enabled default:nil forKey:@"Enabled"];
     [pfs registerBool:&colorTimeSwitch default:NO forKey:@"colorTime"];
     [pfs registerBool:&colorMoonSwitch default:NO forKey:@"colorMoon"];
-    // Custom Options
+    [pfs registerBool:&glowSwitch default:NO forKey:@"glow"];
+    [pfs registerBool:&hideDNDBannerSwitch default:NO forKey:@"hideDNDBanner"];
+    // Coordinate Sliders, Size Slider And Moon Icon
     [pfs registerObject:&xCordinate default:@"150" forKey:@"xcordinates"];
     [pfs registerObject:&yCordinate default:@"215" forKey:@"ycordinates"];
     [pfs registerObject:&moonSize default:@"15" forKey:@"size"];
     [pfs registerObject:&moonIconList default:@"0" forKey:@"moonIcon"];
+    // Custom Glow Options
+    [pfs registerBool:&customGlowSwitch default:NO forKey:@"customGlow"];
+    [pfs registerBool:&purpleGlowIfPurpleMoonSwitch default:NO forKey:@"purpleGlowIfPurpleMoon"];
+    [pfs registerBool:&customShadowRadiusSwitch default:NO forKey:@"customShadowRadius"];
+    [pfs registerBool:&customShadowOpacitySwitch default:NO forKey:@"customShadowOpacity"];
+    [pfs registerObject:&radiusValue default:@"0" forKey:@"radiusValueSlider"];
+    [pfs registerObject:&opacityValue default:@"0" forKey:@"opacityValueSlider"];
+    // Ringer Options
     [pfs registerBool:&ringerIconSwitch default:NO forKey:@"ringerIcon"];
     [pfs registerBool:&preferRingerIconSwitch default:NO forKey:@"preferRingerIcon"];
     [pfs registerObject:&moonIconRingerList default:@"6" forKey:@"moonIconRinger"];
