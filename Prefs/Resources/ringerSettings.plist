@@ -10,6 +10,8 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Ringer Settings - iOS 13 Only</string>
+			<key>footerText</key>
+			<string>Same Coordinates/Size As The Moon Icon</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -49,7 +51,7 @@
 			<key>defaults</key>
 			<string>sh.litten.lunepreferences</string>
 			<key>label</key>
-			<string>Moon Icon:</string>
+			<string>Ringer Icon:</string>
 			<key>key</key>
 			<string>moonIconRinger</string>
 			<key>validValues</key>
@@ -61,16 +63,20 @@
 				<integer>4</integer>
 				<integer>5</integer>
 				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
 			</array>
 			<key>validTitles</key>
 			<array>
-				<string>Moon 1</string>
-				<string>Moon 2</string>
-				<string>Moon 3</string>
-				<string>Moon 4</string>
-				<string>Star 1</string>
-				<string>Heart 1</string>
-				<string>Ringer 1</string>
+				<string>Do Not Disturb Moon</string>
+				<string>Bedtime Moon</string>
+				<string>General Moon</string>
+				<string>Inset Moon</string>
+				<string>General Star</string>
+				<string>Outlined Heart</string>
+				<string>Silent Phone</string>
+				<string>Tangled Sun</string>
+				<string>General Sun</string>
 			</array>
 			<key>PostNotification</key>
 			<string>sh.litten.lunepreferences/ReloadPrefs</string>

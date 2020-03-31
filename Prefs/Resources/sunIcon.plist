@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Enable Sun Icon</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>sunIcon</string>
+			<key>label</key>
+			<string>Sun Icon</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>X Coordinates Of The Sun</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<real>150</real>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>sunXCordinates</string>
+			<key>min</key>
+			<real>-100</real>
+			<key>max</key>
+			<real>500</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Y Coordinates Of The Sun</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<real>115</real>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>sunYCordinates</string>
+			<key>min</key>
+			<real>-100</real>
+			<key>max</key>
+			<real>750</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Sun Size</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<real>15</real>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>sunSize</string>
+			<key>min</key>
+			<real>10</real>
+			<key>max</key>
+			<real>100</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Sun Options</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>colorSun</string>
+			<key>label</key>
+			<string>Color Sun Yellow</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>label</key>
+			<string>Icon:</string>
+			<key>key</key>
+			<string>sunIconIMG</string>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Do Not Disturb Moon</string>
+				<string>Bedtime Moon</string>
+				<string>General Moon</string>
+				<string>Inset Moon</string>
+				<string>General Star</string>
+				<string>Outlined Heart</string>
+				<string>Silent Phone</string>
+				<string>Tangled Sun</string>
+				<string>General Sun</string>
+			</array>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Enable Glow</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>sunGlow</string>
+			<key>label</key>
+			<string>Enable Glow</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>customSunGlow</string>
+			<key>label</key>
+			<string>Custom Glow Settings</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Coloring</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>yellowGlowIfYellowSun</string>
+			<key>label</key>
+			<string>Yellow Glow If Yellow Sun</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Radius</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>customSunShadowRadius</string>
+			<key>label</key>
+			<string>Custom Glow Radius</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<real>0</real>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>sunRadiusValueSlider</string>
+			<key>min</key>
+			<real>0</real>
+			<key>max</key>
+			<real>10</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Opacity</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>customSunShadowOpacity</string>
+			<key>label</key>
+			<string>Custom Glow Opacity</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<real>0</real>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>sunOpacityValueSlider</string>
+			<key>min</key>
+			<real>0</real>
+			<key>max</key>
+			<real>1</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
+
+	</array>
+	<key>title</key>
+	<string>Ringer Settings</string>
+</dict>
+</plist>

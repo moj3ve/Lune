@@ -6,17 +6,19 @@
 	<array>
 
 		<dict>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>@Litteeen</string>
-            <key>cellClass</key>
-            <string>HBTwitterCell</string>
-            <key>label</key>
-            <string>Litten</string>
-            <key>user</key>
-            <string>Litteeen</string>
-        </dict>
+			<key>cellClass</key>
+			<string>DuoTwitterCell</string>
+			<key>firstLabel</key>
+			<string>Litten</string>
+			<key>firstAccount</key>
+			<string>Litteeen</string>
+			<key>secondLabel</key>
+			<string>taki</string>
+			<key>secondAccount</key>
+			<string>74k1_</string>
+			<key>height</key>
+			<real>57</real>
+		</dict>
 
 		<dict>
 			<key>cell</key>
@@ -103,21 +105,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Advanced Settings</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.lunepreferences</string>
-			<key>key</key>
-			<string>colorTime</string>
-			<key>label</key>
-			<string>Color Time Purple</string>
-			<key>PostNotification</key>
-			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+			<string>Moon Options</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -159,20 +147,6 @@
  		</dict>
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>sh.litten.lunepreferences</string>
-			<key>key</key>
-			<string>hideDNDBanner</string>
-			<key>label</key>
-			<string>Remove DND Banner</string>
-			<key>PostNotification</key>
-			<string>sh.litten.lunepreferences/ReloadPrefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
 			<integer>0</integer>
@@ -193,20 +167,41 @@
 				<integer>4</integer>
 				<integer>5</integer>
 				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
 			</array>
 			<key>validTitles</key>
 			<array>
-				<string>Moon 1</string>
-				<string>Moon 2</string>
-				<string>Moon 3</string>
-				<string>Moon 4</string>
-				<string>Star 1</string>
-				<string>Heart 1</string>
-				<string>Ringer 1</string>
+				<string>Do Not Disturb Moon</string>
+				<string>Bedtime Moon</string>
+				<string>General Moon</string>
+				<string>Inset Moon</string>
+				<string>General Star</string>
+				<string>Outlined Heart</string>
+				<string>Silent Phone</string>
+				<string>Tangled Sun</string>
+				<string>General Sun</string>
 			</array>
 			<key>PostNotification</key>
 			<string>sh.litten.lunepreferences/ReloadPrefs</string>
 		</dict>
+		
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Additional Options</string>
+		</dict>
+		<dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Sun Icon</string>
+ 			<key>detail</key>
+ 			<string>LNESubPrefsListController</string>
+ 			<key>LNESub</key>
+ 			<string>sunIcon</string>
+ 		</dict>
 		<dict>
  			<key>cell</key>
  			<string>PSLinkCell</string>
@@ -217,6 +212,37 @@
  			<key>LNESub</key>
  			<string>ringerSettings</string>
  		</dict>
+		 <dict>
+ 			<key>cell</key>
+ 			<string>PSLinkCell</string>
+ 			<key>label</key>
+ 			<string>Status Bar Coloring</string>
+ 			<key>detail</key>
+ 			<string>LNESubPrefsListController</string>
+ 			<key>LNESub</key>
+ 			<string>statusBarSettings</string>
+ 		</dict>
+
+		 <dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Miscellaneous</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>hideDNDBanner</string>
+			<key>label</key>
+			<string>Remove DND Banner</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
 
 		 <dict>
 			<key>cell</key>
@@ -245,39 +271,59 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Icon Design</string>
+			<string>Support Him As Well Please</string>
 		</dict>
 		<dict>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>@74k1_</string>
-            <key>cellClass</key>
-            <string>HBTwitterCell</string>
-            <key>label</key>
-            <string>taki</string>
-            <key>user</key>
-            <string>74k1_</string>
-        </dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>MrGcGamer</string>
+			<key>accountName</key>
+			<string>MrGcGamer</string>
+		</dict>
 
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Support Him As Well Please</string>
+			<string>Give These A Look</string>
 		</dict>
 		<dict>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>@MrGcGamer</string>
-            <key>cellClass</key>
-            <string>HBTwitterCell</string>
-            <key>label</key>
-            <string>MrGcGamer</string>
-            <key>user</key>
-            <string>MrGcGamer</string>
-        </dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Rose</string>
+			<key>subtitle</key>
+			<string>System Wide Haptics, Great uh-huh</string>
+			<key>icon</key>
+			<string>Rose.png</string>
+			<key>url</key>
+			<string>https://repo.litten.love/depictions/rse/</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Aestea</string>
+			<key>subtitle</key>
+			<string>Miss Cream? Try Aestea</string>
+			<key>icon</key>
+			<string>Aestea.png</string>
+			<key>url</key>
+			<string>https://repo.litten.love/depictions/aes/</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Butterfly</string>
+			<key>subtitle</key>
+			<string>Text Selection, But Colorful</string>
+			<key>icon</key>
+			<string>Butterfly.png</string>
+			<key>url</key>
+			<string>https://repo.litten.love/depictions/bty/</string>
+		</dict>
 
 		<!-- Support Me -->
 		<dict>
@@ -285,6 +331,9 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Support Me</string>
+			<key>footerText</key>
+			<string>Lune By Litten
+Artworks By taki</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
@@ -304,7 +353,7 @@
 			<key>subtitle</key>
 			<string>Send Me An Email With Your Request</string>
 			<key>url</key>
-			<string>mailto:hello@litten.sh?subject=Lune%20Feature%20Request</string>
+			<string>mailto:hiya@litten.love?subject=Lune%20Feature%20Request</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
@@ -329,11 +378,13 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSGroupCell</string>
+			<key>PSGroupCell</key>
 			<key>footerText</key>
-			<string>Lune By Litten, Made With ❤️</string>
+			<string>Made With 💙</string>
 			<key>isStaticText</key>
 			<true/>
+			<key>footerAlignment</key>
+			<real>1</real>
 		</dict>
 
 	</array>

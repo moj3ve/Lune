@@ -103,6 +103,90 @@ BOOL enabled = NO;
         // Add It To The View
         [self addSubview: dndImageView];
 
+    } else if (enabled && (!isDNDActive && sunIconSwitch)) {
+        // Get The Values From The Sliders
+        double sunXCordinateValue = [sunXCordinate doubleValue];
+        double sunYCordinateValue = [sunYCordinate doubleValue];
+        double sunSizeValue = [sunSize doubleValue];
+        int sunIconValue = [sunIconList intValue];
+        int moonIconRingerValue = [moonIconRingerList intValue];
+        NSString* sunIconPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", sunIconValue]; // Setting The Paths Of The Images
+        NSString* moonIconRingerPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue];
+        // Set The Image, Mode And Postition
+        dndImageView = [[UIImageView alloc] init];
+        if (!colorSunSwitch) { // If The Moon Should Not Be Colored We Go Straight To The Image Initialisation
+            if (ringerIconSwitch) {
+                if (isRingerSilent && preferRingerIconSwitch) {
+                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
+
+                } else if (isRingerSilent && !isDNDActive) {
+                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
+
+                } else {
+                    dndImageView.image = [UIImage imageWithContentsOfFile: sunIconPath]; 
+
+                }
+
+            } else if (enabled && !ringerIconSwitch) {
+                dndImageView.image = [UIImage imageWithContentsOfFile: sunIconPath]; 
+
+            }
+
+        } else if (colorSunSwitch) { // Else If The Moon Should Be Colored We Have To Create An UIImage first, Setting The Image, Mode And Color
+            UIImage* sunImage;
+            if (ringerIconSwitch) {
+                if (isRingerSilent && preferRingerIconSwitch) {
+                    sunImage = [UIImage imageWithContentsOfFile: moonIconRingerPath];  // Allocation Of The Image From The Path
+
+                } else if (isRingerSilent && !isDNDActive) {
+                    sunImage = [UIImage imageWithContentsOfFile: moonIconRingerPath];
+
+                } else {
+                    sunImage = [UIImage imageWithContentsOfFile: sunIconPath];
+
+                }
+
+            } else if (enabled && !ringerIconSwitch) {
+                sunImage = [UIImage imageWithContentsOfFile: sunIconPath];
+
+            }
+
+            sunImage = [sunImage imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate]; // Setting The Mode So It Can Be Colored
+            dndImageView.tintColor = [UIColor colorWithRed:1.00 green:0.93 blue:0.00 alpha:1.00]; // Setting The Color
+            dndImageView.image = sunImage; // And Setting The Image From The UIImageView
+
+        }
+
+        dndImageView.contentMode = UIViewContentModeScaleAspectFit; // Display Mode Of The UIImageView
+        dndImageView.frame = CGRectMake(sunXCordinateValue, sunYCordinateValue, sunSizeValue, sunSizeValue); // Postition And Size
+    // Add A Glow To The Moon
+    if (sunGlowSwitch) {
+        double radius = [sunRadiusValue doubleValue];
+        double opacity = [sunOpacityValue doubleValue];
+
+        dndImageView.layer.shadowOffset = CGSizeZero;
+
+        if (!colorSunSwitch)
+            dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+        else if (colorSunSwitch && yellowGlowIfYellowSunSwitch)
+            dndImageView.layer.shadowColor = [[UIColor colorWithRed:1.00 green:0.93 blue:0.00 alpha:1.00] CGColor];
+        else
+            dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+
+        if (!customSunGlowSwitch || !customSunShadowRadiusSwitch)
+            dndImageView.layer.shadowRadius = 5;
+        else if (customSunGlowSwitch && customSunShadowRadiusSwitch)
+            dndImageView.layer.shadowRadius = radius;
+
+        if (!customSunGlowSwitch || !customSunShadowOpacitySwitch)
+            dndImageView.layer.shadowOpacity = 1;
+        else if (customSunGlowSwitch && customSunShadowOpacitySwitch)
+            dndImageView.layer.shadowOpacity = opacity;
+
+    }
+        // Add It To The View
+        [self addSubview: dndImageView];
+
     } else {
         [dndImageView removeFromSuperview]; // If DND Is Disabled Remove The Moon From The View
 
@@ -111,18 +195,99 @@ BOOL enabled = NO;
 }
 
 %end
-
+// Text On The Status Bar
 %hook _UIStatusBarStringView
 
 - (void)setTextColor:(id)arg1 {
 
-    if (colorTimeSwitch && isDNDActive) {
+    if (purpleItemsSwitch && isDNDActive) {
         %orig([UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0]);
 
-    } else if (!colorTimeSwitch || !isDNDActive) {
+    } else if (!purpleItemsSwitch || !isDNDActive) {
         %orig;
 
     }
+
+}
+
+%end
+// Status Bar Wifi Icon
+%hook _UIStatusBarWifiSignalView
+
+- (id)activeColor {
+
+    if (purpleItemsSwitch && isDNDActive)
+        return [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0];
+    else
+        return %orig;
+
+}
+
+- (id)inactiveColor {
+
+    if (purpleItemsSwitch && isDNDActive)
+        return [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0];
+    else
+        return %orig;
+
+}
+
+%end
+// Status Bar Cellular Icon
+%hook _UIStatusBarCellularSignalView
+
+- (id)activeColor {
+
+    if (purpleItemsSwitch && isDNDActive)
+        return [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0];
+    else
+        return %orig;
+
+}
+
+- (id)inactiveColor {
+
+    if (purpleItemsSwitch && isDNDActive)
+        return [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0];
+    else
+        return %orig;
+
+}
+
+%end
+
+// Status Bar Images Like DND
+%hook _UIStatusBarImageView
+
+- (void)setTintColor:(UIColor *)arg1 {
+
+    if (purpleItemsSwitch && isDNDActive)
+        %orig([UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0]);
+    else
+        %orig;
+
+}
+
+%end
+
+// Juice Battery
+%hook JCEBatteryView
+
+- (id)statusBarFillColour {
+
+    if (purpleItemsSwitch && isDNDActive)
+        return [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0];
+    else
+        return %orig;
+
+}
+
+- (void)setStatusBarFillColour:(id)arg1 {
+
+    if (purpleItemsSwitch && isDNDActive)
+        %orig([UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0]);
+    else
+        %orig;
 
 }
 
@@ -132,13 +297,10 @@ BOOL enabled = NO;
 // Hide The DND Banner If The Switch Is Toggled
 - (void)_queue_postOrRemoveNotificationWithUpdatedBehavior:(BOOL)arg1 significantTimeChange:(BOOL)arg2 {
 
-    if (enabled && hideDNDBannerSwitch) {
+    if (enabled && hideDNDBannerSwitch)
         return;
-
-    } else {
+    else
         %orig;
-
-    }
 
 }
 
@@ -243,29 +405,43 @@ BOOL enabled = NO;
     }
 
     pfs = [[HBPreferences alloc] initWithIdentifier:@"sh.litten.lunepreferences"];
-    // Enabled and Reminder Options
+    // Enabled Switch
     [pfs registerBool:&enabled default:nil forKey:@"Enabled"];
-    [pfs registerBool:&colorTimeSwitch default:NO forKey:@"colorTime"];
+    // Moon Options
     [pfs registerBool:&colorMoonSwitch default:NO forKey:@"colorMoon"];
     [pfs registerBool:&glowSwitch default:NO forKey:@"glow"];
-    [pfs registerBool:&hideDNDBannerSwitch default:NO forKey:@"hideDNDBanner"];
-    // Coordinate Sliders, Size Slider And Moon Icon
     [pfs registerObject:&xCordinate default:@"150" forKey:@"xcordinates"];
     [pfs registerObject:&yCordinate default:@"215" forKey:@"ycordinates"];
     [pfs registerObject:&moonSize default:@"15" forKey:@"size"];
     [pfs registerObject:&moonIconList default:@"0" forKey:@"moonIcon"];
-    // Custom Glow Options
     [pfs registerBool:&customGlowSwitch default:NO forKey:@"customGlow"];
     [pfs registerBool:&purpleGlowIfPurpleMoonSwitch default:NO forKey:@"purpleGlowIfPurpleMoon"];
     [pfs registerBool:&customShadowRadiusSwitch default:NO forKey:@"customShadowRadius"];
     [pfs registerBool:&customShadowOpacitySwitch default:NO forKey:@"customShadowOpacity"];
     [pfs registerObject:&radiusValue default:@"0" forKey:@"radiusValueSlider"];
     [pfs registerObject:&opacityValue default:@"0" forKey:@"opacityValueSlider"];
+    // Sun Options
+    [pfs registerBool:&sunIconSwitch default:NO forKey:@"sunIcon"];
+    [pfs registerBool:&colorSunSwitch default:NO forKey:@"colorSun"];
+    [pfs registerObject:&sunIconList default:@"0" forKey:@"sunIconIMG"];
+    [pfs registerObject:&sunXCordinate default:@"150" forKey:@"sunXCordinates"];
+    [pfs registerObject:&sunYCordinate default:@"215" forKey:@"sunYCordinates"];
+    [pfs registerObject:&sunSize default:@"15" forKey:@"sunSize"];
+    [pfs registerBool:&sunGlowSwitch default:NO forKey:@"sunGlow"];
+    [pfs registerBool:&customSunGlowSwitch default:NO forKey:@"customSunGlow"];
+    [pfs registerBool:&yellowGlowIfYellowSunSwitch default:NO forKey:@"yellowGlowIfYellowSun"];
+    [pfs registerBool:&customSunShadowRadiusSwitch default:NO forKey:@"customSunShadowRadius"];
+    [pfs registerBool:&customSunShadowOpacitySwitch default:NO forKey:@"customSunShadowOpacity"];
+    [pfs registerObject:&sunRadiusValue default:@"0" forKey:@"sunRadiusValueSlider"];
+    [pfs registerObject:&sunOpacityValue default:@"0" forKey:@"sunOpacityValueSlider"];
     // Ringer Options
     [pfs registerBool:&ringerIconSwitch default:NO forKey:@"ringerIcon"];
     [pfs registerBool:&preferRingerIconSwitch default:NO forKey:@"preferRingerIcon"];
     [pfs registerObject:&moonIconRingerList default:@"6" forKey:@"moonIconRinger"];
-    
+    // Miscellaneous
+    [pfs registerBool:&purpleItemsSwitch default:NO forKey:@"purpleItems"];
+    [pfs registerBool:&hideDNDBannerSwitch default:NO forKey:@"hideDNDBanner"];
+    // DND State
     [pfs registerBool:&isDNDActive default:NO forKey:@"isDNDActiveBool"];
 
 	if (!dpkgInvalid && enabled) {
