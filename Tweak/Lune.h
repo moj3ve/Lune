@@ -7,8 +7,8 @@ HBPreferences *pfs;
 // Thanks to Nepeta for the DRM
 BOOL dpkgInvalid = NO;
 
-// Moon ImageView
-UIImageView* dndImageView;
+// // Moon ImageView
+// UIImageView* dndImageView;
 
 // Option Switches
 extern BOOL enabled;
@@ -58,8 +58,8 @@ BOOL isDNDActive;
 BOOL isRingerSilent;
 
 @interface SBFLockScreenDateView : UIView
-- (void)layoutSubviews;
 - (void)setMoon;
+@property(nonatomic, strong)UIImageView* dndImageView;
 @end
 
 @interface DNDState : NSObject
@@ -68,14 +68,6 @@ BOOL isRingerSilent;
 
 @interface SBRingerControl : NSObject
 - (BOOL)isRingerMuted;
-@end
-
-@interface _UIStatusBarStringView : UIView
-- (void)setTextColor:(id)arg1;
-@end
-
-@interface _UIStatusBarWifiSignalView : UIView
--(void)_updateBars;
 @end
 
 @interface SBIconController : UIViewController

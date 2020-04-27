@@ -1,5 +1,7 @@
 #include "LNERootListController.h"
+#import <Cephei/HBRespringController.h>
 #import "../Tweak/Lune.h"
+#import <spawn.h>
 
 BOOL enabled = NO;
 
@@ -21,7 +23,7 @@ BOOL enabled = NO;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.text = @"1.4";
+        self.titleLabel.text = @"1.4.1";
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.navigationItem.titleView addSubview:self.titleLabel];
@@ -104,11 +106,6 @@ BOOL enabled = NO;
 - (void)viewDidAppear:(BOOL)animated {
 
 	[super viewDidAppear:animated];
-
-    if (@available(iOS 11, *)) {
-		self.navigationController.navigationBar.prefersLargeTitles = false;
-		self.navigationController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-	}
 
     [self.navigationController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 
@@ -216,10 +213,12 @@ BOOL enabled = NO;
 
 - (void)respringUtil {
 
-	NSTask *t = [[NSTask alloc] init];
-    [t setLaunchPath:@"/usr/bin/killall"];
-    [t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
-    [t launch];
+    pid_t pid;
+    const char *args[] = {"killall", "backboardd", NULL};
+
+    [HBRespringController respringAndReturnTo:[NSURL URLWithString:@"prefs:root=Lune"]];
+
+    posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char *const *)args, NULL);
 
 }
 

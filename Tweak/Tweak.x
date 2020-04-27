@@ -5,12 +5,15 @@ BOOL enabled = NO;
 %group Lune
 
 %hook SBFLockScreenDateView
+
+%property(nonatomic, strong)UIImageView* dndImageView;
+
 // Using The layoutSubviews Because They're Being Called More Often Than didMoveToWindow
 - (void)layoutSubviews {
 
 	%orig;
     // Removing The Moon Before Showing, Workaround To Fix The Moon Not Hiding When DND Mode Is Disabled
-    [dndImageView removeFromSuperview];
+    self.dndImageView.hidden = YES;
     // Show The Moon If DND Is Active
     [self setMoon];
 
@@ -21,6 +24,7 @@ BOOL enabled = NO;
 
     if (enabled && (isDNDActive || (isRingerSilent && ringerIconSwitch))) {
         // Get The Values From The Sliders
+        self.dndImageView.hidden = NO;
         double xCordinateValue = [xCordinate doubleValue];
         double yCordinateValue = [yCordinate doubleValue];
         double moonSizeValue = [moonSize doubleValue];
@@ -29,22 +33,22 @@ BOOL enabled = NO;
         NSString* moonIconPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]; // Setting The Paths Of The Images
         NSString* moonIconRingerPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue];
         // Set The Image, Mode And Postition
-        dndImageView = [[UIImageView alloc] init];
+        if (!self.dndImageView) self.dndImageView = [[UIImageView alloc] init];
         if (!colorMoonSwitch) { // If The Moon Should Not Be Colored We Go Straight To The Image Initialisation
             if (ringerIconSwitch) {
                 if (isRingerSilent && preferRingerIconSwitch) {
-                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
+                    self.dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
 
                 } else if (isRingerSilent && !isDNDActive) {
-                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
+                    self.dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
 
                 } else {
-                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconPath]; 
+                    self.dndImageView.image = [UIImage imageWithContentsOfFile: moonIconPath]; 
 
                 }
 
             } else if (enabled && !ringerIconSwitch) {
-                dndImageView.image = [UIImage imageWithContentsOfFile: moonIconPath]; 
+                self.dndImageView.image = [UIImage imageWithContentsOfFile: moonIconPath]; 
 
             }
 
@@ -68,43 +72,44 @@ BOOL enabled = NO;
             }
 
             moonImage = [moonImage imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate]; // Setting The Mode So It Can Be Colored
-            dndImageView.tintColor = [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0]; // Setting The Color
-            dndImageView.image = moonImage; // And Setting The Image From The UIImageView
+            self.dndImageView.tintColor = [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0]; // Setting The Color
+            self.dndImageView.image = moonImage; // And Setting The Image From The UIImageView
 
         }
 
-        dndImageView.contentMode = UIViewContentModeScaleAspectFit; // Display Mode Of The UIImageView
-        dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue); // Postition And Size
+        self.dndImageView.contentMode = UIViewContentModeScaleAspectFit; // Display Mode Of The UIImageView
+        self.dndImageView.frame = CGRectMake(xCordinateValue, yCordinateValue, moonSizeValue, moonSizeValue); // Postition And Size
     // Add A Glow To The Moon
     if (glowSwitch) {
         double radius = [radiusValue doubleValue];
         double opacity = [opacityValue doubleValue];
 
-        dndImageView.layer.shadowOffset = CGSizeZero;
+        self.dndImageView.layer.shadowOffset = CGSizeZero;
 
         if (!colorMoonSwitch)
-            dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+            self.dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
         else if (colorMoonSwitch && purpleGlowIfPurpleMoonSwitch)
-            dndImageView.layer.shadowColor = [[UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0] CGColor];
+            self.dndImageView.layer.shadowColor = [[UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0] CGColor];
         else
-            dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+            self.dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
 
         if (!customGlowSwitch || !customShadowRadiusSwitch)
-            dndImageView.layer.shadowRadius = 5;
+            self.dndImageView.layer.shadowRadius = 5;
         else if (customGlowSwitch && customShadowRadiusSwitch)
-            dndImageView.layer.shadowRadius = radius;
+            self.dndImageView.layer.shadowRadius = radius;
 
         if (!customGlowSwitch || !customShadowOpacitySwitch)
-            dndImageView.layer.shadowOpacity = 1;
+            self.dndImageView.layer.shadowOpacity = 1;
         else if (customGlowSwitch && customShadowOpacitySwitch)
-            dndImageView.layer.shadowOpacity = opacity;
+            self.dndImageView.layer.shadowOpacity = opacity;
 
     }
         // Add It To The View
-        [self addSubview: dndImageView];
+        [self addSubview: self.dndImageView];
 
     } else if (enabled && (!isDNDActive && sunIconSwitch)) {
         // Get The Values From The Sliders
+        self.dndImageView.hidden = NO;
         double sunXCordinateValue = [sunXCordinate doubleValue];
         double sunYCordinateValue = [sunYCordinate doubleValue];
         double sunSizeValue = [sunSize doubleValue];
@@ -113,22 +118,22 @@ BOOL enabled = NO;
         NSString* sunIconPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", sunIconValue]; // Setting The Paths Of The Images
         NSString* moonIconRingerPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue];
         // Set The Image, Mode And Postition
-        dndImageView = [[UIImageView alloc] init];
+        if (!self.dndImageView) self.dndImageView = [[UIImageView alloc] init];
         if (!colorSunSwitch) { // If The Moon Should Not Be Colored We Go Straight To The Image Initialisation
             if (ringerIconSwitch) {
                 if (isRingerSilent && preferRingerIconSwitch) {
-                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
+                    self.dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
 
                 } else if (isRingerSilent && !isDNDActive) {
-                    dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
+                    self.dndImageView.image = [UIImage imageWithContentsOfFile: moonIconRingerPath]; 
 
                 } else {
-                    dndImageView.image = [UIImage imageWithContentsOfFile: sunIconPath]; 
+                    self.dndImageView.image = [UIImage imageWithContentsOfFile: sunIconPath]; 
 
                 }
 
             } else if (enabled && !ringerIconSwitch) {
-                dndImageView.image = [UIImage imageWithContentsOfFile: sunIconPath]; 
+                self.dndImageView.image = [UIImage imageWithContentsOfFile: sunIconPath]; 
 
             }
 
@@ -152,43 +157,43 @@ BOOL enabled = NO;
             }
 
             sunImage = [sunImage imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate]; // Setting The Mode So It Can Be Colored
-            dndImageView.tintColor = [UIColor colorWithRed:1.00 green:0.93 blue:0.00 alpha:1.00]; // Setting The Color
-            dndImageView.image = sunImage; // And Setting The Image From The UIImageView
+            self.dndImageView.tintColor = [UIColor colorWithRed:1.00 green:0.93 blue:0.00 alpha:1.00]; // Setting The Color
+            self.dndImageView.image = sunImage; // And Setting The Image From The UIImageView
 
         }
 
-        dndImageView.contentMode = UIViewContentModeScaleAspectFit; // Display Mode Of The UIImageView
-        dndImageView.frame = CGRectMake(sunXCordinateValue, sunYCordinateValue, sunSizeValue, sunSizeValue); // Postition And Size
+        self.dndImageView.contentMode = UIViewContentModeScaleAspectFit; // Display Mode Of The UIImageView
+        self.dndImageView.frame = CGRectMake(sunXCordinateValue, sunYCordinateValue, sunSizeValue, sunSizeValue); // Postition And Size
     // Add A Glow To The Moon
     if (sunGlowSwitch) {
         double radius = [sunRadiusValue doubleValue];
         double opacity = [sunOpacityValue doubleValue];
 
-        dndImageView.layer.shadowOffset = CGSizeZero;
+        self.dndImageView.layer.shadowOffset = CGSizeZero;
 
         if (!colorSunSwitch)
-            dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+            self.dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
         else if (colorSunSwitch && yellowGlowIfYellowSunSwitch)
-            dndImageView.layer.shadowColor = [[UIColor colorWithRed:1.00 green:0.93 blue:0.00 alpha:1.00] CGColor];
+            self.dndImageView.layer.shadowColor = [[UIColor colorWithRed:1.00 green:0.93 blue:0.00 alpha:1.00] CGColor];
         else
-            dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+            self.dndImageView.layer.shadowColor = [[UIColor whiteColor] CGColor];
 
         if (!customSunGlowSwitch || !customSunShadowRadiusSwitch)
-            dndImageView.layer.shadowRadius = 5;
+            self.dndImageView.layer.shadowRadius = 5;
         else if (customSunGlowSwitch && customSunShadowRadiusSwitch)
-            dndImageView.layer.shadowRadius = radius;
+            self.dndImageView.layer.shadowRadius = radius;
 
         if (!customSunGlowSwitch || !customSunShadowOpacitySwitch)
-            dndImageView.layer.shadowOpacity = 1;
+            self.dndImageView.layer.shadowOpacity = 1;
         else if (customSunGlowSwitch && customSunShadowOpacitySwitch)
-            dndImageView.layer.shadowOpacity = opacity;
+            self.dndImageView.layer.shadowOpacity = opacity;
 
     }
         // Add It To The View
-        [self addSubview: dndImageView];
+        [self addSubview: self.dndImageView];
 
     } else {
-        [dndImageView removeFromSuperview]; // If DND Is Disabled Remove The Moon From The View
+        [self.dndImageView removeFromSuperview]; // If DND Is Disabled Remove The Moon From The View
 
     }
 
