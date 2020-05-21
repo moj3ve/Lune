@@ -2,7 +2,7 @@ Package: sh.litten.lune
 Name: Lune 🌙
 Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.14), firmware (>= 12)
 Conflicts: com.junesiphone.lockpluspro, com.xcxiao.simplels2
-Version: 1.4.1
+Version: 1.5
 Architecture: iphoneos-arm
 Description: Twinkle, Twinkle, Little Star
 Maintainer: Litten <hiya@litten.love>

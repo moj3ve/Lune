@@ -7,10 +7,6 @@ HBPreferences *pfs;
 // Thanks to Nepeta for the DRM
 BOOL dpkgInvalid = NO;
 
-// // Moon ImageView
-// UIImageView* dndImageView;
-
-// Option Switches
 extern BOOL enabled;
 
 // Coordinate Sliders, Size Slider And Moon Icon
@@ -49,17 +45,19 @@ NSString* moonIconRingerList = @"6";
 
 // Status Bar Coloring
 BOOL purpleItemsSwitch = NO;
+BOOL purpleBackgroundSwitch = NO;
 
 // Miscellaneous
 BOOL hideDNDBannerSwitch = NO;
 
 // Detection Variables
 BOOL isDNDActive;
-BOOL isRingerSilent;
+BOOL isRingerSilent;;
 
 @interface SBFLockScreenDateView : UIView
 - (void)setMoon;
 @property(nonatomic, strong)UIImageView* dndImageView;
+- (void)toggleDND;
 @end
 
 @interface DNDState : NSObject

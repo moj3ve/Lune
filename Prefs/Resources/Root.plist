@@ -272,6 +272,10 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Support Him As Well Please</string>
+			<key>footerText</key>
+			<string>Thanks kritanta For The Pretty Twitter Cells</string>
+			<key>isStaticText</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>cellClass</key>
@@ -280,6 +284,14 @@
 			<string>MrGcGamer</string>
 			<key>accountName</key>
 			<string>MrGcGamer</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>KRTwitterCell</string>
+			<key>label</key>
+			<string>kritanta</string>
+			<key>accountName</key>
+			<string>_kritanta</string>
 		</dict>
 
 		<dict>
@@ -349,38 +361,18 @@ Artworks By taki</string>
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>Feature Request? ✨</string>
-			<key>subtitle</key>
-			<string>Send Me An Email With Your Request</string>
-			<key>url</key>
-			<string>mailto:hiya@litten.love?subject=Lune%20Feature%20Request</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>HBLinkTableCell</string>
-			<key>label</key>
 			<string>Source Code 🌙</string>
 			<key>subtitle</key>
 			<string>Github</string>
 			<key>url</key>
 			<string>https://github.com/Litteeen/Lune</string>
 		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>HBLinkTableCell</string>
-			<key>label</key>
-			<string>Found A Bug? 🌧</string>
-			<key>subtitle</key>
-			<string>Leave A Bug Report Here</string>
-			<key>url</key>
-			<string>https://github.com/Litteeen/Lune/issues/new</string>
-		</dict>
 
 		<dict>
 			<key>cell</key>
 			<key>PSGroupCell</key>
 			<key>footerText</key>
-			<string>Made With 💙</string>
+			<string>Made With 💜</string>
 			<key>isStaticText</key>
 			<true/>
 			<key>footerAlignment</key>

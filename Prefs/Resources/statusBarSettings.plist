@@ -25,6 +25,20 @@
 			<key>PostNotification</key>
 			<string>sh.litten.lunepreferences/ReloadPrefs</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>sh.litten.lunepreferences</string>
+			<key>key</key>
+			<string>purpleBackground</string>
+			<key>label</key>
+			<string>Purple Background On HS, LS</string>
+			<key>PostNotification</key>
+			<string>sh.litten.lunepreferences/ReloadPrefs</string>
+		</dict>
 
 	</array>
 	<key>title</key>

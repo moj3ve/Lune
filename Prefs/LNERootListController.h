@@ -10,6 +10,7 @@
 @interface LNERootListController : HBRootListController {
     UITableView * _table;
 }
+
 @property(nonatomic, retain)UISwitch* enableSwitch;
 @property (nonatomic, retain) UIView *headerView;
 @property (nonatomic, retain) UIImageView *headerImageView;
@@ -21,4 +22,5 @@
 - (void)resetPrompt;
 - (void)resetPreferences;
 - (void)respringUtil;
+
 @end

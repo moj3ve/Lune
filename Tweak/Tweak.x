@@ -1,6 +1,6 @@
 #import "Lune.h"
 
-BOOL enabled = NO;
+BOOL enabled;
 
 %group Lune
 
@@ -32,7 +32,7 @@ BOOL enabled = NO;
         int moonIconRingerValue = [moonIconRingerList intValue];
         NSString* moonIconPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconValue]; // Setting The Paths Of The Images
         NSString* moonIconRingerPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue];
-        // Set The Image, Mode And Postition
+        // Set The Image, Mode And Position
         if (!self.dndImageView) self.dndImageView = [[UIImageView alloc] init];
         if (!colorMoonSwitch) { // If The Moon Should Not Be Colored We Go Straight To The Image Initialisation
             if (ringerIconSwitch) {
@@ -117,7 +117,7 @@ BOOL enabled = NO;
         int moonIconRingerValue = [moonIconRingerList intValue];
         NSString* sunIconPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", sunIconValue]; // Setting The Paths Of The Images
         NSString* moonIconRingerPath = [NSString stringWithFormat: @"/Library/Lune/moonIcon%d.png", moonIconRingerValue];
-        // Set The Image, Mode And Postition
+        // Set The Image, Mode And Position
         if (!self.dndImageView) self.dndImageView = [[UIImageView alloc] init];
         if (!colorSunSwitch) { // If The Moon Should Not Be Colored We Go Straight To The Image Initialisation
             if (ringerIconSwitch) {
@@ -317,7 +317,13 @@ BOOL enabled = NO;
 
     isDNDActive = %orig;
 
-    [pfs setBool: isDNDActive forKey: @"isDNDActiveBool"];
+    [pfs setBool: isDNDActive forKey: @"isDNDActiveBool"]; // Save The Value To Fix It Not Appearing After A Respring
+    // Status Bar Coloring
+    UIView* statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+    if (isDNDActive && purpleBackgroundSwitch)
+        statusBar.backgroundColor = [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0];
+    else
+        statusBar.backgroundColor = [UIColor clearColor];
 
     return %orig;
 
@@ -332,6 +338,22 @@ BOOL enabled = NO;
     isRingerSilent = %orig;
 
     return %orig;
+
+}
+
+%end
+
+%hook SpringBoard
+
+- (void)applicationDidFinishLaunching:(BOOL)arg1 {
+
+    %orig;
+    // Color Again To Fix It Not Appearing After A  Respring
+    UIView* statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+    if (isDNDActive && purpleBackgroundSwitch)
+        statusBar.backgroundColor = [UIColor colorWithRed:0.40 green:0.38 blue:0.83 alpha:1.0];
+    else
+        statusBar.backgroundColor = [UIColor clearColor];
 
 }
 
@@ -445,6 +467,7 @@ BOOL enabled = NO;
     [pfs registerObject:&moonIconRingerList default:@"6" forKey:@"moonIconRinger"];
     // Miscellaneous
     [pfs registerBool:&purpleItemsSwitch default:NO forKey:@"purpleItems"];
+    [pfs registerBool:&purpleBackgroundSwitch default:NO forKey:@"purpleBackground"];
     [pfs registerBool:&hideDNDBannerSwitch default:NO forKey:@"hideDNDBanner"];
     // DND State
     [pfs registerBool:&isDNDActive default:NO forKey:@"isDNDActiveBool"];
